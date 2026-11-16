@@ -26,6 +26,7 @@
   /* Destaques */
   --gold-accent: #f59e0b;
   --gold-glow: #fbbf24;
+  --insta-pink: #e1306c;
 
   --radius-sm: 8px;
   --radius-md: 14px;
@@ -95,7 +96,7 @@ body {
    HEADER
    ======================================================== */
 .main-header {
-  padding: 22px 0;
+  padding: 24px 0;
   border-bottom: 1px solid var(--border-color);
   background: rgba(10, 13, 20, 0.88);
   backdrop-filter: blur(16px);
@@ -107,27 +108,11 @@ body {
 .header-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.brand-badge {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  color: var(--lotep-light);
-  background: rgba(14, 165, 233, 0.12);
-  border: 1px solid rgba(14, 165, 233, 0.3);
-  padding: 3px 10px;
-  border-radius: 999px;
-  margin-bottom: 6px;
-  text-transform: uppercase;
+  justify-content: flex-start;
 }
 
 .brand-title {
-  font-size: 1.75rem;
+  font-size: 1.85rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: #fff;
@@ -143,62 +128,9 @@ body {
 }
 
 .brand-subtitle {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: var(--text-muted);
-  margin-top: 2px;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.badge-status {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.82rem;
-  color: #a7f3d0;
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  padding: 6px 14px;
-  border-radius: 999px;
-}
-
-.pulse-dot {
-  width: 8px;
-  height: 8px;
-  background-color: var(--cap-glow);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--cap-glow);
-  animation: pulseAnim 2s infinite;
-}
-
-@keyframes pulseAnim {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  50% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(0.95); opacity: 0.8; }
-}
-
-.btn-quick-calc {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--bg-card-subtle);
-  color: #fff;
-  padding: 8px 16px;
-  border-radius: var(--radius-md);
-  font-size: 0.86rem;
-  font-weight: 600;
-  text-decoration: none;
-  border: 1px solid var(--border-color);
-  transition: var(--transition-fast);
-}
-
-.btn-quick-calc:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  margin-top: 4px;
 }
 
 /* ========================================================
@@ -467,43 +399,52 @@ body {
 
 /* ========================================================
    SEÇÃO INFERIOR: CALCULADORA (ESQ) + CASES (DIR)
+   (AMBOS COM O MESMO FUNDO E BORDA DE LOTEP & CAP)
    ======================================================== */
 .bottom-tools-grid {
   display: grid;
   grid-template-columns: 360px 1fr;
-  gap: 32px;
+  gap: 24px;
   align-items: start;
 }
 
 /* ========================================================
-   COLUNA DA ESQUERDA: CALCULADORA CELULAR PADRÃO (FOTO 1)
+   COLUNA DA ESQUERDA: CALCULADORA COM MESMO FUNDO DE LOTEP/CAP
    ======================================================== */
 .calc-phone-column {
   display: flex;
   justify-content: center;
 }
 
-.ios-calculator {
+.calc-theme-card {
   width: 100%;
-  max-width: 340px;
-  background-color: #000000;
-  border-radius: 40px;
-  padding: 24px 18px 24px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  max-width: 360px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 26px 20px 24px;
+  box-shadow: var(--shadow-sm);
   user-select: none;
+  transition: background 0.3s ease;
+}
+
+.calc-theme-card:hover {
+  background: var(--bg-card-hover);
 }
 
 .ios-display-box {
-  min-height: 110px;
+  min-height: 100px;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  padding: 0 12px 14px;
+  padding: 0 8px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 16px;
 }
 
 .ios-calc-display {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-  font-size: 4.2rem;
+  font-size: 4rem;
   font-weight: 300;
   color: #ffffff;
   line-height: 1;
@@ -533,7 +474,7 @@ body {
   align-items: center;
   justify-content: center;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-  font-size: 1.7rem;
+  font-size: 1.65rem;
   font-weight: 400;
   transition: filter 0.15s ease, transform 0.08s ease;
 }
@@ -547,20 +488,25 @@ body {
 .btn-gray {
   background-color: #a5a5a5;
   color: #000000;
-  font-size: 1.45rem;
+  font-size: 1.4rem;
+  font-weight: 500;
 }
 
 /* Botões Laranja (÷, ×, −, +, =) */
 .btn-orange {
   background-color: #ff9f0a;
   color: #ffffff;
-  font-size: 1.9rem;
+  font-size: 1.85rem;
 }
 
 /* Botões Cinza Escuro (Números) */
 .btn-dark {
-  background-color: #333333;
+  background-color: #262b35;
   color: #ffffff;
+}
+
+.btn-dark:hover {
+  background-color: #333a46;
 }
 
 /* Tecla Zero Larga (2 colunas) */
@@ -572,7 +518,7 @@ body {
 }
 
 /* ========================================================
-   COLUNA DA DIREITA: CASES & LINKS (EXATAMENTE COMO A FOTO 2)
+   COLUNA DA DIREITA: CASES & LINKS (MESMO FUNDO DE LOTEP/CAP)
    ======================================================== */
 .cases-reference-column {
   display: flex;
@@ -580,19 +526,24 @@ body {
 }
 
 .cases-panel-card {
-  background: #1e2227;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 30px;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.3s ease;
+}
+
+.cases-panel-card:hover {
+  background: var(--bg-card-hover);
 }
 
 .cases-panel-header {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -605,7 +556,7 @@ body {
 }
 
 .cases-panel-header h3 {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #f1f5f9;
 }
@@ -616,13 +567,18 @@ body {
   gap: 16px;
 }
 
-/* Linha de Cada Item como na Foto 2 */
+/* Linha de Cada Item */
 .case-row-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 4px 0;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.case-row-item:last-child {
+  border-bottom: none;
 }
 
 .case-avatar-col {
@@ -630,12 +586,18 @@ body {
 }
 
 .case-round-avatar {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.12);
   display: block;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.case-round-avatar:hover {
+  transform: scale(1.08);
+  border-color: #e1306c;
 }
 
 .case-name-col {
@@ -644,48 +606,53 @@ body {
   padding-left: 4px;
 }
 
-.case-person-name {
-  font-size: 0.98rem;
-  font-weight: 500;
+/* Nome do Insta Clicável */
+.case-insta-link-name {
+  font-size: 1.05rem;
+  font-weight: 600;
   color: #f3f4f6;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s ease;
+}
+
+.case-insta-link-name:hover {
+  color: #38bdf8;
+}
+
+.insta-mini-icon {
+  font-size: 0.95rem;
+  color: var(--insta-pink);
+  opacity: 0.85;
 }
 
 .case-link-col {
   flex-shrink: 0;
 }
 
-/* Botão estilo pill como na foto 2 */
+/* Botão Link de Ações */
 .case-link-pill {
-  background: #41464e;
+  background: #252d3a;
   color: #f1f5f9;
   text-decoration: none;
-  font-size: 0.88rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  font-weight: 600;
   padding: 10px 22px;
   border-radius: 10px;
   display: inline-block;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.2s ease;
-  min-width: 170px;
+  min-width: 160px;
   text-align: center;
 }
 
 .case-link-pill:hover {
-  background: #50565f;
+  background: #323d4e;
+  border-color: rgba(255, 255, 255, 0.2);
   color: #ffffff;
-  transform: translateY(-1px);
-}
-
-.link-whatsapp-pill {
-  background: #256a42;
-  border-color: rgba(37, 211, 102, 0.3);
-}
-
-.link-whatsapp-pill:hover {
-  background: #2e8251;
+  transform: translateY(-2px);
 }
 
 /* ========================================================
@@ -1109,22 +1076,13 @@ body {
 
 .footer-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
+  text-align: center;
 }
 
 .footer-left strong {
   color: #cbd5e1;
-}
-
-.git-pill {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 2px 8px;
-  border-radius: 4px;
-  color: var(--lotep-light);
-  font-family: monospace;
 }
 
 /* ========================================================
@@ -1138,7 +1096,7 @@ body {
 
   .bottom-tools-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 24px;
   }
 
   .calc-phone-column {
@@ -1151,9 +1109,9 @@ body {
 }
 
 @media (max-width: 600px) {
-  .ios-calculator {
+  .calc-theme-card {
     max-width: 100%;
-    padding: 18px 12px;
+    padding: 18px 14px;
   }
 
   .ios-btn {
@@ -1167,7 +1125,7 @@ body {
 
   .case-link-pill {
     min-width: 100%;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     padding: 8px 14px;
   }
 }
