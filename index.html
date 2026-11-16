@@ -160,11 +160,16 @@
       </div>
     </section>
 
-    <!-- SEÇÃO INFERIOR: CALCULADORA (ESQ) + CASES (CENTRO) + BLOCO DE NOTAS & AGENDA (DIR) -->
+    <!-- SEÇÃO INFERIOR: 3 COLUNAS
+         COL 1: CALCULADORA + AGENDA (EMBAIXO DA CALCULADORA)
+         COL 2: CASES & LINKS OFICIAIS
+         COL 3: BLOCO DE NOTAS (MAIOR PARA BAIXO ALINHADO COM CASES) -->
     <section class="bottom-tools-grid" id="area-calculadora">
 
-      <!-- COLUNA 1: CALCULADORA -->
-      <div class="calc-phone-column">
+      <!-- COLUNA 1: CALCULADORA + AGENDA DE EVENTOS EMBAIXO -->
+      <div class="calc-agenda-column">
+        
+        <!-- CALCULADORA -->
         <div class="calc-theme-card">
           <!-- Display da Calculadora -->
           <div class="ios-display-box">
@@ -203,9 +208,35 @@
             <button class="ios-btn btn-orange" onclick="iosCalcInput('=')">=</button>
           </div>
         </div>
+
+        <!-- AGENDA DE EVENTOS (EMBAIXO DA CALCULADORA) -->
+        <div class="widget-card calendar-widget">
+          <div class="widget-header">
+            <div class="widget-title-wrap">
+              <i class="fa-regular fa-calendar-check widget-icon calendar-icon"></i>
+              <h4>Agenda de Eventos</h4>
+            </div>
+            <span class="badge-events-count" id="eventsCount">2 eventos</span>
+          </div>
+
+          <!-- Formulário de Adicionar Evento -->
+          <div class="event-add-form">
+            <input type="text" id="eventTitleInput" placeholder="Compromisso (ex: Sorteio LOTEP, Cobrar)...">
+            <div class="event-form-row">
+              <input type="datetime-local" id="eventDateInput">
+              <button class="btn-add-event" onclick="addCalendarEvent()"><i class="fa-solid fa-plus"></i></button>
+            </div>
+          </div>
+
+          <!-- Lista de Eventos Marcados -->
+          <div class="events-scroll-list" id="eventsList">
+            <!-- Eventos renderizados via JavaScript -->
+          </div>
+        </div>
+
       </div>
 
-      <!-- COLUNA 2: CASES & LINKS (COM O LINK ESCRITO LITERALMENTE NO BOTÃO) -->
+      <!-- COLUNA 2: CASES & LINKS -->
       <div class="cases-reference-column">
         <div class="cases-panel-card">
           <div class="cases-panel-header">
@@ -314,11 +345,9 @@
         </div>
       </div>
 
-      <!-- COLUNA 3: BLOCO DE NOTAS & AGENDA DE EVENTOS (TAMANHO AMPLIADO E CONFORTÁVEL) -->
-      <div class="notes-calendar-column">
-        
-        <!-- PARTE 1: BLOCO DE NOTAS AMPLIADO -->
-        <div class="widget-card notepad-widget">
+      <!-- COLUNA 3: BLOCO DE NOTAS (MAIOR PARA BAIXO ALINHADO COM CASES) -->
+      <div class="notepad-column">
+        <div class="widget-card notepad-widget-large">
           <div class="widget-header">
             <div class="widget-title-wrap">
               <i class="fa-solid fa-pen-to-square widget-icon"></i>
@@ -330,38 +359,12 @@
             </div>
           </div>
           <div class="notepad-body">
-            <textarea id="salesNotepad" placeholder="Faça anotações de vendas, dados de clientes, telefones, cotas ou lembretes diários..." oninput="saveNotepad()"></textarea>
+            <textarea id="salesNotepad" placeholder="Faça anotações de vendas, dados de clientes, telefones, cotas, lembretes diários e metas..." oninput="saveNotepad()"></textarea>
           </div>
           <div class="notepad-status-bar">
             <span id="notepadStatus"><i class="fa-solid fa-check"></i> Salvo automaticamente</span>
           </div>
         </div>
-
-        <!-- PARTE 2: AGENDA PARA MARCAR EVENTOS AMPLIADA -->
-        <div class="widget-card calendar-widget">
-          <div class="widget-header">
-            <div class="widget-title-wrap">
-              <i class="fa-regular fa-calendar-check widget-icon calendar-icon"></i>
-              <h4>Agenda de Eventos</h4>
-            </div>
-            <span class="badge-events-count" id="eventsCount">2 eventos</span>
-          </div>
-
-          <!-- Formulário de Adicionar Evento -->
-          <div class="event-add-form">
-            <input type="text" id="eventTitleInput" placeholder="Nome do evento (ex: Sorteio LOTEP, Cobrar cliente)...">
-            <div class="event-form-row">
-              <input type="datetime-local" id="eventDateInput">
-              <button class="btn-add-event" onclick="addCalendarEvent()"><i class="fa-solid fa-plus"></i> Adicionar Evento</button>
-            </div>
-          </div>
-
-          <!-- Lista de Eventos Marcados -->
-          <div class="events-scroll-list" id="eventsList">
-            <!-- Eventos renderizados via JavaScript -->
-          </div>
-        </div>
-
       </div>
 
     </section>
