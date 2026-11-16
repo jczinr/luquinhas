@@ -6,7 +6,7 @@
   <title>Portal de Apoio a Vendas | Luquinhas - LOTEP & CAP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -20,18 +20,18 @@
   <header class="main-header">
     <div class="container header-container">
       <div class="brand">
-        <div class="brand-badge">PORTAL DO VENDEDOR</div>
+        <div class="brand-badge">MATERIAL DE APOIO & SUPORTE</div>
         <h1 class="brand-title">Vendas Suporte <span class="highlight">Luquinhas</span></h1>
-        <p class="brand-subtitle">Central de Materiais de Apoio, Simuladores, Legislações & Estratégias</p>
+        <p class="brand-subtitle">Central de Materiais de Apoio, Simuladores, Legislações & Links Oficiais</p>
       </div>
       <div class="header-actions">
         <div class="badge-status">
           <span class="pulse-dot"></span>
           Legislações & Tabela 2026 Ativas
         </div>
-        <a href="#calculadora" class="btn-quick-calc">
-          <i class="fa-solid fa-calculator"></i>
-          <span>Ir para Calculadora</span>
+        <a href="#area-calculadora" class="btn-quick-calc">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+          <span>Calculadora</span>
         </a>
       </div>
     </div>
@@ -39,7 +39,7 @@
 
   <main class="container main-content">
 
-    <!-- SEÇÃO PRINCIPAL TOPO: 2 BOTÕES GIGANTES (LOTEP & CAP) -->
+    <!-- SEÇÃO PRINCIPAL TOPO: 2 BOTÕES PRINCIPAIS (LOTEP & CAP) -->
     <section class="hub-selection-section">
       <div class="section-title-wrap">
         <span class="section-tag">MATERIAIS E SIMULADORES EXCLUSIVOS</span>
@@ -118,298 +118,244 @@
       </div>
     </section>
 
-    <!-- SEÇÃO DE BAIXO: CALCULADORA (ESQUERDA) + LINKS E CASES (DIREITA) -->
-    <section class="bottom-tools-grid">
+    <!-- SEÇÃO DE BAIXO: CALCULADORA DE CELULAR (ESQUERDA) + CASES E LINKS (DIREITA) -->
+    <section class="bottom-tools-grid" id="area-calculadora">
 
-      <!-- COLUNA DA ESQUERDA: CALCULADORA -->
-      <div class="calc-column" id="calculadora">
-        <div class="calc-card">
-          <div class="card-header-styled">
-            <div class="header-icon-box">
-              <i class="fa-solid fa-calculator"></i>
-            </div>
-            <div>
-              <h3>Calculadora do Vendedor & Simulador</h3>
-              <p>Calcule comissões, metas e simule prêmios para os seus clientes em segundos.</p>
+      <!-- COLUNA DA ESQUERDA: CALCULADORA ESTILO CELULAR PADRÃO -->
+      <div class="calc-phone-column">
+        <div class="phone-calc-wrapper">
+          <div class="phone-calc-top-header">
+            <div class="phone-speaker"></div>
+            <div class="phone-status-row">
+              <span class="phone-time" id="liveClock">17:55</span>
+              <div class="phone-indicators">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-full"></i>
+              </div>
             </div>
           </div>
 
-          <!-- Modos da Calculadora -->
-          <div class="calc-modes-tabs">
-            <button class="mode-tab active" id="tabComissao" onclick="switchCalcMode('comissao')">
-              <i class="fa-solid fa-hand-holding-dollar"></i> Minhas Comissões
-            </button>
-            <button class="mode-tab" id="tabPremios" onclick="switchCalcMode('premios')">
-              <i class="fa-solid fa-dice"></i> Simulação p/ Cliente
-            </button>
-          </div>
-
-          <!-- MODO 1: COMISSÕES -->
-          <div class="calc-body" id="modeComissao">
-            <div class="form-row">
-              <label>Escolha o Produto:</label>
-              <div class="product-pills">
-                <button type="button" class="pill active" id="calcProdLotep" onclick="selectCalcProduct('lotep')">
-                  <i class="fa-solid fa-ticket"></i> LOTEP
-                </button>
-                <button type="button" class="pill" id="calcProdCap" onclick="selectCalcProduct('cap')">
-                  <i class="fa-solid fa-coins"></i> CAP
-                </button>
-              </div>
+          <div class="phone-calc-body">
+            <!-- Display Digital da Calculadora -->
+            <div class="calc-display-container">
+              <div class="calc-history" id="calcHistory">&nbsp;</div>
+              <div class="calc-main-display" id="calcDisplay">0</div>
             </div>
 
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="inputPrecoUnit">Valor Unitário do Título (R$):</label>
-                <div class="input-with-symbol">
-                  <span>R$</span>
-                  <input type="number" id="inputPrecoUnit" value="10" min="1" step="0.50" oninput="calculateCommission()">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="inputQtdVendas">Qtd. Vendas (Diária/Ciclo):</label>
-                <div class="input-with-symbol">
-                  <input type="number" id="inputQtdVendas" value="25" min="1" step="1" oninput="calculateCommission()">
-                  <span class="unit-text">unid.</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="label-with-val">
-                <label>Sua Taxa de Comissão:</label>
-                <span class="val-highlight" id="lblComissaoPct">15%</span>
-              </div>
-              <input type="range" id="rangeComissao" min="5" max="40" value="15" step="1" oninput="updateCommissionSlider(this.value)">
-              <div class="slider-ticks">
-                <span>5%</span>
-                <span>15% (Padrão)</span>
-                <span>25%</span>
-                <span>40%</span>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="inputDiasTrabalho">Dias de Venda no Mês:</label>
-              <div class="days-pills">
-                <button type="button" class="pill-day" onclick="setWorkingDays(20)">20 dias</button>
-                <button type="button" class="pill-day active" onclick="setWorkingDays(26)">26 dias</button>
-                <button type="button" class="pill-day" onclick="setWorkingDays(30)">30 dias</button>
-              </div>
-              <input type="hidden" id="inputDiasTrabalho" value="26">
-            </div>
-
-            <!-- RESULTADOS DA CALCULADORA DE COMISSÃO -->
-            <div class="results-box">
-              <div class="res-item">
-                <span class="res-label">Faturamento Total do Dia</span>
-                <span class="res-value" id="resFatDia">R$ 250,00</span>
-              </div>
-              <div class="res-item highlight-green">
-                <span class="res-label"><i class="fa-solid fa-wallet"></i> Sua Comissão por Dia</span>
-                <span class="res-value" id="resComissaoDia">R$ 37,50</span>
-              </div>
-              <div class="res-item highlight-gold">
-                <span class="res-label"><i class="fa-solid fa-chart-line"></i> Projeção no Mês</span>
-                <span class="res-value big-res" id="resComissaoMes">R$ 975,00</span>
-              </div>
-            </div>
-
-            <button class="btn-copy-simulation" onclick="copyCommissionPitch()">
-              <i class="fa-solid fa-copy"></i>
-              <span>Copiar Resumo da Minha Meta</span>
-            </button>
-          </div>
-
-          <!-- MODO 2: SIMULAÇÃO PARA O CLIENTE -->
-          <div class="calc-body hidden" id="modePremios">
-            <div class="form-group">
-              <label for="simNomeCliente">Primeiro Nome do Cliente (Opcional):</label>
-              <input type="text" id="simNomeCliente" class="styled-input" placeholder="Ex: João, Maria..." oninput="calculateClientSimulation()">
-            </div>
-
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="simValorInvestido">Valor que o Cliente vai investir:</label>
-                <div class="input-with-symbol">
-                  <span>R$</span>
-                  <input type="number" id="simValorInvestido" value="50" min="5" step="5" oninput="calculateClientSimulation()">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="simTipoProduto">Modalidade:</label>
-                <select id="simTipoProduto" class="styled-select" onchange="calculateClientSimulation()">
-                  <option value="lotep_diario">LOTEP - Bilhete da Sorte (R$ 5 cada)</option>
-                  <option value="lotep_super">LOTEP - Super Cota (R$ 10 cada)</option>
-                  <option value="cap_semanal">CAP - Título Semanal (R$ 10 cada)</option>
-                  <option value="cap_mensal">CAP - Super Prêmio (R$ 20 cada)</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- RESULTADOS DA SIMULAÇÃO PARA O CLIENTE -->
-            <div class="client-sim-card">
-              <div class="sim-badge"><i class="fa-solid fa-gift"></i> Resultado da Simulação do Cliente</div>
-              <div class="sim-stat-row">
-                <span>Total de Bilhetes/Chances:</span>
-                <strong id="simTotalChances">10 Chances de Premiação</strong>
-              </div>
-              <div class="sim-stat-row">
-                <span>Prêmios Principais Estimados:</span>
-                <strong class="text-gold" id="simPremiosEstimados">Até R$ 50.000,00</strong>
-              </div>
-              <div class="sim-stat-row">
-                <span>Chances Extras / Giro da Sorte:</span>
-                <strong id="simChancesExtras">10 Giros Instantâneos</strong>
-              </div>
-            </div>
-
-            <button class="btn-copy-simulation btn-whatsapp" onclick="copyClientWhatsAppMessage()">
-              <i class="fa-brands fa-whatsapp"></i>
-              <span>Copiar Mensagem Pronta p/ WhatsApp do Cliente</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- COLUNA DA DIREITA: LINKS RÁPIDOS & CASES DE SUCESSO -->
-      <div class="links-cases-column">
-
-        <!-- BLOCO 1: LINKS & FERRAMENTAS OFICIAIS -->
-        <div class="block-card links-block">
-          <div class="card-header-styled mini">
-            <div class="header-icon-box">
-              <i class="fa-solid fa-link"></i>
-            </div>
-            <div>
-              <h3>Links Oficiais & Acessos Rápidos</h3>
-              <p>Canais oficiais, suporte direto e ferramentas de apoio.</p>
-            </div>
-          </div>
-
-          <div class="quick-links-grid">
-            <!-- Instagram -->
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="link-card link-instagram">
-              <div class="link-icon-circle"><i class="fa-brands fa-instagram"></i></div>
-              <div class="link-text">
-                <span class="link-title">Instagram Oficial</span>
-                <span class="link-desc">@suporte.luquinhas • Dicas diárias</span>
-              </div>
-              <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
-            </a>
-
-            <!-- WhatsApp Grupo -->
-            <a href="https://chat.whatsapp.com" target="_blank" rel="noopener noreferrer" class="link-card link-whatsapp">
-              <div class="link-icon-circle"><i class="fa-brands fa-whatsapp"></i></div>
-              <div class="link-text">
-                <span class="link-title">Grupo VIP de Vendedores</span>
-                <span class="link-desc">Tira-dúvidas e avisos de resultados</span>
-              </div>
-              <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
-            </a>
-
-            <!-- Site Oficial de Vendas -->
-            <a href="#" onclick="alert('Link do Site Oficial de Vendas configurável pelo gestor.'); return false;" class="link-card link-site">
-              <div class="link-icon-circle"><i class="fa-solid fa-globe"></i></div>
-              <div class="link-text">
-                <span class="link-title">Portal de Vendas Online</span>
-                <span class="link-desc">Painel de emissão e checagem</span>
-              </div>
-              <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
-            </a>
-
-            <!-- Drive de Criativos -->
-            <a href="#" onclick="alert('Pasta com criativos, artes para Stories e panfletos digitais.'); return false;" class="link-card link-drive">
-              <div class="link-icon-circle"><i class="fa-solid fa-folder-open"></i></div>
-              <div class="link-text">
-                <span class="link-title">Drive de Criativos & Banners</span>
-                <span class="link-desc">Artes prontas para postar nos Stories</span>
-              </div>
-              <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- BLOCO 2: CASES DE SUCESSO (INSTAGRAM STYLE & PROVA SOCIAL) -->
-        <div class="block-card cases-block">
-          <div class="card-header-styled mini">
-            <div class="header-icon-box gold">
-              <i class="fa-solid fa-star"></i>
-            </div>
-            <div>
-              <h3>Cases de Sucesso & Prova Social</h3>
-              <p>Histórias reais de vendedores e clientes premiados para inspirar e fechar vendas.</p>
-            </div>
-          </div>
-
-          <!-- Stories bar preview -->
-          <div class="stories-bar">
-            <div class="story-circle active" onclick="viewCase('case1')">
-              <div class="story-avatar"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Mariana"></div>
-              <span>Mariana</span>
-            </div>
-            <div class="story-circle active" onclick="viewCase('case2')">
-              <div class="story-avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Lucas"></div>
-              <span>Lucas</span>
-            </div>
-            <div class="story-circle active" onclick="viewCase('case3')">
-              <div class="story-avatar"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80" alt="Fernanda"></div>
-              <span>Fernanda</span>
-            </div>
-            <div class="story-circle active" onclick="viewCase('case4')">
-              <div class="story-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="Carlos"></div>
-              <span>Carlos</span>
-            </div>
-          </div>
-
-          <!-- Featured Case Card (Estilo Post do Instagram) -->
-          <div class="insta-post-card" id="featuredCasePost">
-            <div class="insta-header">
-              <div class="insta-user-meta">
-                <img id="caseUserImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" class="insta-avatar" alt="Avatar">
-                <div>
-                  <div class="insta-username" id="caseUserName">mariana.vendas <i class="fa-solid fa-circle-check verified-badge"></i></div>
-                  <div class="insta-location" id="caseUserLocation">Campina Grande - PB • Vendedora Destaque LOTEP</div>
-                </div>
-              </div>
-              <button class="btn-share-case" title="Copiar história para mandar pro cliente" onclick="copyCurrentCase()">
-                <i class="fa-solid fa-share-nodes"></i> Copiar Prova Social
+            <!-- Botões Rápidos de Apoio a Vendas no Celular -->
+            <div class="calc-quick-actions">
+              <button class="quick-btn" onclick="calcQuickSales(5)" title="Calcular bilhete R$ 5">+ R$ 5</button>
+              <button class="quick-btn" onclick="calcQuickSales(10)" title="Calcular cota R$ 10">+ R$ 10</button>
+              <button class="quick-btn" onclick="calcQuickPercent(15)" title="Calcular comissão 15%">15% Com.</button>
+              <button class="quick-btn btn-copy-res" onclick="copyCalcResult()" title="Copiar valor calculado">
+                <i class="fa-regular fa-copy"></i> Copiar
               </button>
             </div>
 
-            <div class="insta-badge-callout" id="caseHighlight">
-              <i class="fa-solid fa-trophy"></i> R$ 5.840,00 faturados no 1º mês aplicando o script oficial!
-            </div>
+            <!-- Teclado Numérico da Calculadora Estilo Celular -->
+            <div class="calc-keypad">
+              <button class="calc-key func-key" onclick="calcInput('AC')">AC</button>
+              <button class="calc-key func-key" onclick="calcInput('+/-')">+/-</button>
+              <button class="calc-key func-key" onclick="calcInput('%')">%</button>
+              <button class="calc-key op-key" onclick="calcInput('/')">÷</button>
 
-            <p class="insta-caption" id="caseCaption">
-              "No começo achei que ia ser difícil convencer as pessoas, mas quando usei o simulador com a tabela de chances oficiais da LOTEP, os clientes sentiram total confiança. Em 3 semanas bati minha meta de R$ 5 mil em comissões!"
-            </p>
+              <button class="calc-key num-key" onclick="calcInput('7')">7</button>
+              <button class="calc-key num-key" onclick="calcInput('8')">8</button>
+              <button class="calc-key num-key" onclick="calcInput('9')">9</button>
+              <button class="calc-key op-key" onclick="calcInput('*')">×</button>
 
-            <div class="insta-footer-actions">
-              <div class="case-tags" id="caseTags">
-                <span class="tag-pill">#LOTEP</span>
-                <span class="tag-pill">#ComissãoGarantida</span>
-                <span class="tag-pill">#CasoReal</span>
-              </div>
-              <div class="case-nav-dots">
-                <span class="dot active" onclick="viewCase('case1')"></span>
-                <span class="dot" onclick="viewCase('case2')"></span>
-                <span class="dot" onclick="viewCase('case3')"></span>
-                <span class="dot" onclick="viewCase('case4')"></span>
-              </div>
+              <button class="calc-key num-key" onclick="calcInput('4')">4</button>
+              <button class="calc-key num-key" onclick="calcInput('5')">5</button>
+              <button class="calc-key num-key" onclick="calcInput('6')">6</button>
+              <button class="calc-key op-key" onclick="calcInput('-')">−</button>
+
+              <button class="calc-key num-key" onclick="calcInput('1')">1</button>
+              <button class="calc-key num-key" onclick="calcInput('2')">2</button>
+              <button class="calc-key num-key" onclick="calcInput('3')">3</button>
+              <button class="calc-key op-key" onclick="calcInput('+')">+</button>
+
+              <button class="calc-key num-key zero-key" onclick="calcInput('0')">0</button>
+              <button class="calc-key num-key" onclick="calcInput('.')">,</button>
+              <button class="calc-key func-key" onclick="calcInput('DEL')"><i class="fa-solid fa-delete-left"></i></button>
+              <button class="calc-key eq-key" onclick="calcInput('=')">=</button>
             </div>
           </div>
 
+          <div class="phone-home-indicator"></div>
         </div>
+      </div>
+
+      <!-- COLUNA DA DIREITA: CASES & LINKS (FOTO PERFIL + INSTA + LINKS DE AÇÕES) -->
+      <div class="cases-links-column">
+
+        <!-- CARD DE PERFIL PRINCIPAL COM FOTO, LINK DO INSTA E LINKS DE AÇÕES -->
+        <div class="profile-actions-card">
+          <div class="profile-row-header">
+            <div class="profile-photo-wrap">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=180&q=80" alt="Luquinhas Vendas" class="profile-photo">
+              <span class="profile-online-badge" title="Online agora para suporte"></span>
+            </div>
+            <div class="profile-info-side">
+              <div class="profile-name-row">
+                <h3>Luquinhas • Vendas Suporte</h3>
+                <span class="verified-icon" title="Verificado Oficial"><i class="fa-solid fa-circle-check"></i></span>
+              </div>
+              <p class="profile-bio">Especialista em Suporte Comercial LOTEP & CAP Premiável. Material de apoio, metas e conversão diária.</p>
+              
+              <!-- Link do Instagram ao Lado -->
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="link-insta-side">
+                <i class="fa-brands fa-instagram"></i>
+                <span class="insta-handle">@luquinhas.vendas</span>
+                <span class="insta-badge-pill">Seguir no Insta</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Links de Ações do Lado/Abaixo -->
+          <div class="action-buttons-grid">
+            <a href="https://wa.me/?text=Ol%C3%A1%2C%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20as%20vendas%20LOTEP%20e%20CAP" target="_blank" rel="noopener noreferrer" class="act-btn act-whatsapp">
+              <i class="fa-brands fa-whatsapp"></i>
+              <div class="act-btn-text">
+                <strong>WhatsApp Direto</strong>
+                <span>Plantão de Vendas & Suporte</span>
+              </div>
+              <i class="fa-solid fa-chevron-right act-arrow"></i>
+            </a>
+
+            <a href="#" onclick="openSiteVendas(); return false;" class="act-btn act-site">
+              <i class="fa-solid fa-bag-shopping"></i>
+              <div class="act-btn-text">
+                <strong>Site Oficial de Vendas</strong>
+                <span>Emitir bilhetes e cotas online</span>
+              </div>
+              <i class="fa-solid fa-chevron-right act-arrow"></i>
+            </a>
+
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="act-btn act-direct">
+              <i class="fa-regular fa-paper-plane"></i>
+              <div class="act-btn-text">
+                <strong>Direct do Instagram</strong>
+                <span>Fale diretamente no direct</span>
+              </div>
+              <i class="fa-solid fa-chevron-right act-arrow"></i>
+            </a>
+
+            <a href="#" onclick="openDriveArtes(); return false;" class="act-btn act-drive">
+              <i class="fa-solid fa-folder-open"></i>
+              <div class="act-btn-text">
+                <strong>Drive de Criativos</strong>
+                <span>Banners e artes para Stories</span>
+              </div>
+              <i class="fa-solid fa-chevron-right act-arrow"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- SEÇÃO DE CASES DE SUCESSO (FOTO PERFIL + LINK INSTA + AÇÕES AO LADO) -->
+        <div class="cases-section-card">
+          <div class="cases-header-title">
+            <div class="cases-title-icon"><i class="fa-solid fa-trophy"></i></div>
+            <div>
+              <h3>Cases de Sucesso & Prova Social</h3>
+              <p>Histórias reais com foto de perfil, Instagram do vendedor e botões de ação.</p>
+            </div>
+          </div>
+
+          <!-- LISTA DE CASES -->
+          <div class="cases-cards-list">
+
+            <!-- Case 1 -->
+            <div class="case-item-row">
+              <div class="case-user-left">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Mariana" class="case-avatar">
+              </div>
+              <div class="case-user-middle">
+                <div class="case-user-top">
+                  <strong class="case-name">Mariana Souza</strong>
+                  <span class="case-badge-pill lotep-tag">Destaque LOTEP</span>
+                </div>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="case-insta-link">
+                  <i class="fa-brands fa-instagram"></i> @mariana.vendas
+                </a>
+                <p class="case-story-text">
+                  "Bati <strong>R$ 5.840,00 em comissões</strong> no primeiro mês usando o script oficial de abordagem com a tabela de chances!"
+                </p>
+              </div>
+              <div class="case-actions-side">
+                <button class="case-action-btn btn-copy-case" onclick="copyCaseStory('mariana')" title="Copiar prova social">
+                  <i class="fa-regular fa-copy"></i> <span>Copiar</span>
+                </button>
+                <a href="https://wa.me/?text=Ol%C3%A1%2C%20veja%20o%20case%20da%20Mariana%20que%20faturou%20R%24%205.840%20com%20a%20LOTEP!" target="_blank" class="case-action-btn btn-send-case" title="Mandar no WhatsApp">
+                  <i class="fa-brands fa-whatsapp"></i> <span>Mandar</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Case 2 -->
+            <div class="case-item-row">
+              <div class="case-user-left">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Lucas" class="case-avatar">
+              </div>
+              <div class="case-user-middle">
+                <div class="case-user-top">
+                  <strong class="case-name">Lucas Andrade</strong>
+                  <span class="case-badge-pill cap-tag">Especialista CAP</span>
+                </div>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="case-insta-link">
+                  <i class="fa-brands fa-instagram"></i> @lucas.consultoria
+                </a>
+                <p class="case-story-text">
+                  "Cliente meu ganhou <strong>R$ 35.000,00 no sorteio semanal</strong> do CAP. Hoje vendo mais de 50 títulos só por indicação!"
+                </p>
+              </div>
+              <div class="case-actions-side">
+                <button class="case-action-btn btn-copy-case" onclick="copyCaseStory('lucas')" title="Copiar prova social">
+                  <i class="fa-regular fa-copy"></i> <span>Copiar</span>
+                </button>
+                <a href="https://wa.me/?text=Ol%C3%A1%2C%20veja%20o%20caso%20do%20cliente%20do%20Lucas%20que%20levou%20R%24%2035%20mil%20no%20CAP!" target="_blank" class="case-action-btn btn-send-case" title="Mandar no WhatsApp">
+                  <i class="fa-brands fa-whatsapp"></i> <span>Mandar</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Case 3 -->
+            <div class="case-item-row">
+              <div class="case-user-left">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="Carlos" class="case-avatar">
+              </div>
+              <div class="case-user-middle">
+                <div class="case-user-top">
+                  <strong class="case-name">Carlos Eduardo</strong>
+                  <span class="case-badge-pill lotep-tag">Vendas Externas</span>
+                </div>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="case-insta-link">
+                  <i class="fa-brands fa-instagram"></i> @carlos.vendas.pb
+                </a>
+                <p class="case-story-text">
+                  "Com a calculadora e as legislações oficiais da LOTEP na mão, fechei 140 cotas em um sábado em Santa Rita!"
+                </p>
+              </div>
+              <div class="case-actions-side">
+                <button class="case-action-btn btn-copy-case" onclick="copyCaseStory('carlos')" title="Copiar prova social">
+                  <i class="fa-regular fa-copy"></i> <span>Copiar</span>
+                </button>
+                <a href="https://wa.me/?text=Ol%C3%A1%2C%20veja%20como%20o%20Carlos%20bateu%20meta%20de%20140%20cotas%20com%20a%20LOTEP!" target="_blank" class="case-action-btn btn-send-case" title="Mandar no WhatsApp">
+                  <i class="fa-brands fa-whatsapp"></i> <span>Mandar</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
 
     </section>
 
   </main>
 
-  <!-- MODAL COMPLETO: MATERIAL LOTEP OU CAP (SIMULADOR / LEGISLAÇÃO / SCRIPTS) -->
+  <!-- MODAL COMPLETO: MATERIAL LOTEP OU CAP (SIMULADOR / LEGISLAÇÃO / SCRIPTS / DOWNLOADS) -->
   <div class="modal-backdrop" id="productModal" onclick="closeProductModal(event)">
     <div class="modal-dialog" onclick="event.stopPropagation()">
       <div class="modal-header">
@@ -492,7 +438,7 @@
         <strong>Vendas Suporte Luquinhas</strong> • Material de Apoio e Capacitação ao Vendedor.
       </div>
       <div class="footer-right">
-        <span>Em conformidade com as diretrizes regulatórias estaduais e SUSEP.</span>
+        <span>Vinculado ao GitHub: <code class="git-pill">jczinr/luquinhas</code></span>
       </div>
     </div>
   </footer>

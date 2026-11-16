@@ -143,238 +143,285 @@ Diferente de aposta onde o dinheiro 'some' se não ganhar, no título de capital
   }
 };
 
-// Dados dos Cases de Sucesso (Instagram Style)
-const CASES_DATA = {
-  case1: {
-    userName: "mariana.vendas",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80",
-    location: "Campina Grande - PB • Destaque LOTEP",
-    highlight: "R$ 5.840,00 faturados no 1º mês aplicando o script oficial!",
-    caption: `"No começo achei que ia ser difícil convencer as pessoas, mas quando usei o simulador com a tabela de chances oficiais da LOTEP, os clientes sentiram total confiança. Em 3 semanas bati minha meta de R$ 5 mil em comissões!"`,
-    tags: ["#LOTEP", "#ComissãoGarantida", "#CasoReal"]
+// Dados detalhados dos Cases para cópia
+const CASES_PITCH = {
+  mariana: {
+    nome: "Mariana Souza (@mariana.vendas)",
+    cidade: "Campina Grande - PB",
+    premio: "R$ 5.840,00 no 1º mês",
+    produto: "LOTEP",
+    mensagem: `🌟 *CASE DE SUCESSO - Mariana Souza (@mariana.vendas)*
+📍 Campina Grande - PB • Destaque LOTEP
+💰 Faturamento: R$ 5.840,00 em comissões no 1º mês!
+
+"No começo achei que ia ser difícil, mas quando usei o script oficial e mostrei a tabela de chances oficiais da LOTEP aos clientes, fechei mais de 10 cotas por dia. A comissão cai certinha!"
+
+👉 Veja como aplicar o método no Portal Luquinhas!`
   },
-  case2: {
-    userName: "lucas.consultoria",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80",
-    location: "João Pessoa - PB • Especialista CAP",
-    highlight: "Cliente premiado com R$ 35.000 no Título Semanal!",
-    caption: `"Vendi 3 títulos CAP para o seu Raimundo da padaria. No sorteio de domingo ele levou R$ 35 mil no giro da sorte! A notícia espalhou no bairro e agora vendo mais de 60 títulos por dia só por indicação."`,
-    tags: ["#CAP", "#ClientePremiado", "#SUSEP"]
+  lucas: {
+    nome: "Lucas Andrade (@lucas.consultoria)",
+    cidade: "João Pessoa - PB",
+    premio: "Cliente premiado com R$ 35.000",
+    produto: "CAP Premiável",
+    mensagem: `🏆 *CASE DE SUCESSO - Lucas Andrade (@lucas.consultoria)*
+📍 João Pessoa - PB • Especialista CAP SUSEP
+🎉 Resultado: Cliente comtemplado com R$ 35.000,00 no sorteio de domingo!
+
+"Vendi 3 títulos CAP para o seu Raimundo da padaria. No domingo ele levou R$ 35 mil no giro da sorte! A notícia explodiu no bairro e agora vendo mais de 50 títulos por dia só por indicação."`
   },
-  case3: {
-    userName: "fernanda.lider",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80",
-    location: "Patos - PB • Vendedora Top 1",
-    highlight: "180 títulos vendidos em um único final de semana!",
-    caption: `"O material de apoio com as legislações prontas é sensacional. Quando o cliente pergunta da segurança, eu mando o artigo da SUSEP e o decreto da LOTEP. Fecho na hora sem perder tempo!"`,
-    tags: ["#VendaDireta", "#MaterialDeApoio", "#TopSeller"]
-  },
-  case4: {
-    userName: "carlos.vendas.pb",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80",
-    location: "Santa Rita - PB • Vendas Externas",
-    highlight: "R$ 2.400 em comissões na primeira semana de trabalho!",
-    caption: `"A calculadora do vendedor me deu uma clareza absurda. Eu vi que precisava de só 25 bilhetes por dia para pagar todas as minhas contas. Com o script no WhatsApp foi mais fácil do que imaginei."`,
-    tags: ["#MetaBatida", "#Calculadora", "#LiberdadeFinanceira"]
+  carlos: {
+    nome: "Carlos Eduardo (@carlos.vendas.pb)",
+    cidade: "Santa Rita - PB",
+    premio: "140 cotas em um sábado",
+    produto: "LOTEP",
+    mensagem: `🚀 *CASE DE SUCESSO - Carlos Eduardo (@carlos.vendas.pb)*
+📍 Santa Rita - PB • Vendas Externas
+⚡ Meta: 140 cotas vendidas em um único sábado!
+
+"Com a calculadora no celular e as legislações oficiais da LOTEP na mão, mostrei a segurança jurídica da operação para cada cliente. Fechei na hora!"`
   }
 };
 
 let currentProduct = 'lotep';
-let currentActiveCase = 'case1';
-let calcProduct = 'lotep';
-let workingDays = 26;
 
-// Inicialização
-document.addEventListener('DOMContentLoaded', () => {
-  calculateCommission();
-  calculateClientSimulation();
+// ========================================================
+// MOTOR DA CALCULADORA DE CELULAR SMARTPHONE
+// ========================================================
+let calcCurrentVal = '0';
+let calcPreviousVal = '';
+let calcOperator = null;
+let calcResetOnNext = false;
+
+function updateCalcDisplay() {
+  const display = document.getElementById('calcDisplay');
+  const history = document.getElementById('calcHistory');
+
+  // Formatação com separador de milhar
+  let formatted = calcCurrentVal;
+  if (!calcCurrentVal.includes('e') && !calcCurrentVal.includes('E')) {
+    const parts = calcCurrentVal.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    formatted = parts.join(',');
+  }
+
+  // Ajuste do tamanho da fonte se o número for muito longo
+  if (formatted.length > 9) {
+    display.style.fontSize = '2rem';
+  } else if (formatted.length > 7) {
+    display.style.fontSize = '2.4rem';
+  } else {
+    display.style.fontSize = '2.8rem';
+  }
+
+  display.textContent = formatted;
+
+  if (calcOperator && calcPreviousVal !== '') {
+    let opSymbol = calcOperator;
+    if (opSymbol === '*') opSymbol = '×';
+    if (opSymbol === '/') opSymbol = '÷';
+    if (opSymbol === '-') opSymbol = '−';
+    history.textContent = `${calcPreviousVal.replace('.', ',')} ${opSymbol}`;
+  } else {
+    history.innerHTML = '&nbsp;';
+  }
+}
+
+function calcInput(key) {
+  // Números
+  if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(key)) {
+    if (calcCurrentVal === '0' || calcResetOnNext) {
+      calcCurrentVal = key;
+      calcResetOnNext = false;
+    } else {
+      if (calcCurrentVal.length < 12) {
+        calcCurrentVal += key;
+      }
+    }
+    updateCalcDisplay();
+    return;
+  }
+
+  // Ponto / Vírgula decimal
+  if (key === '.') {
+    if (calcResetOnNext) {
+      calcCurrentVal = '0.';
+      calcResetOnNext = false;
+    } else if (!calcCurrentVal.includes('.')) {
+      calcCurrentVal += '.';
+    }
+    updateCalcDisplay();
+    return;
+  }
+
+  // Limpar (AC)
+  if (key === 'AC') {
+    calcCurrentVal = '0';
+    calcPreviousVal = '';
+    calcOperator = null;
+    calcResetOnNext = false;
+    updateCalcDisplay();
+    return;
+  }
+
+  // Apagar último dígito (DEL)
+  if (key === 'DEL') {
+    if (calcResetOnNext) return;
+    if (calcCurrentVal.length > 1) {
+      calcCurrentVal = calcCurrentVal.slice(0, -1);
+    } else {
+      calcCurrentVal = '0';
+    }
+    updateCalcDisplay();
+    return;
+  }
+
+  // Inversão de sinal (+/-)
+  if (key === '+/-') {
+    if (calcCurrentVal !== '0') {
+      if (calcCurrentVal.startsWith('-')) {
+        calcCurrentVal = calcCurrentVal.substring(1);
+      } else {
+        calcCurrentVal = '-' + calcCurrentVal;
+      }
+      updateCalcDisplay();
+    }
+    return;
+  }
+
+  // Porcentagem (%)
+  if (key === '%') {
+    const val = parseFloat(calcCurrentVal);
+    if (!isNaN(val)) {
+      calcCurrentVal = String(val / 100);
+      updateCalcDisplay();
+    }
+    return;
+  }
+
+  // Operadores aritméticos (+, -, *, /)
+  if (['+', '-', '*', '/'].includes(key)) {
+    if (calcOperator && !calcResetOnNext) {
+      executeCalcOperation();
+    }
+    calcPreviousVal = calcCurrentVal;
+    calcOperator = key;
+    calcResetOnNext = true;
+    updateCalcDisplay();
+    return;
+  }
+
+  // Igual (=)
+  if (key === '=') {
+    if (calcOperator && calcPreviousVal !== '') {
+      executeCalcOperation();
+      calcOperator = null;
+      calcResetOnNext = true;
+    }
+    updateCalcDisplay();
+    return;
+  }
+}
+
+function executeCalcOperation() {
+  const prev = parseFloat(calcPreviousVal);
+  const current = parseFloat(calcCurrentVal);
+  if (isNaN(prev) || isNaN(current)) return;
+
+  let result = 0;
+  switch (calcOperator) {
+    case '+': result = prev + current; break;
+    case '-': result = prev - current; break;
+    case '*': result = prev * current; break;
+    case '/': 
+      if (current === 0) {
+        showToast("Não é possível dividir por zero!");
+        return;
+      }
+      result = prev / current; 
+      break;
+    default: return;
+  }
+
+  // Truncar casas decimais excessivas
+  result = Math.round(result * 100000000) / 100000000;
+  calcCurrentVal = String(result);
+  calcPreviousVal = '';
+}
+
+// Atalhos Rápidos de Venda no Celular
+function calcQuickSales(valorBilhete) {
+  calcInput('AC');
+  calcCurrentVal = String(valorBilhete);
+  calcInput('*');
+  showToast(`Multiplicando por R$ ${valorBilhete},00. Digite a quantidade de bilhetes e aperte '='`);
+}
+
+function calcQuickPercent(pct) {
+  const val = parseFloat(calcCurrentVal);
+  if (isNaN(val) || val === 0) {
+    showToast("Digite o valor das vendas primeiro!");
+    return;
+  }
+  const comissao = val * (pct / 100);
+  calcPreviousVal = `${val} × ${pct}%`;
+  calcCurrentVal = String(Math.round(comissao * 100) / 100);
+  calcResetOnNext = true;
+  updateCalcDisplay();
+  showToast(`Comissão de ${pct}% calculada: R$ ${calcCurrentVal.replace('.', ',')}`);
+}
+
+function copyCalcResult() {
+  const displayVal = document.getElementById('calcDisplay').textContent;
+  copyToClipboard(`R$ ${displayVal}`, `Resultado R$ ${displayVal} copiado!`);
+}
+
+// Captura de teclas físicas do teclado
+document.addEventListener('keydown', (e) => {
+  if (document.activeElement.tagName === 'INPUT') return;
+
+  if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(e.key)) {
+    calcInput(e.key);
+  } else if (e.key === '.' || e.key === ',') {
+    calcInput('.');
+  } else if (['+', '-', '*', '/'].includes(e.key)) {
+    calcInput(e.key);
+  } else if (e.key === 'Enter' || e.key === '=') {
+    e.preventDefault();
+    calcInput('=');
+  } else if (e.key === 'Backspace') {
+    calcInput('DEL');
+  } else if (e.key === 'Escape') {
+    calcInput('AC');
+  } else if (e.key === '%') {
+    calcInput('%');
+  }
 });
 
-// ========================================================
-// CALCULADORA DO VENDEDOR (COMISSÕES E PROJEÇÃO)
-// ========================================================
-function switchCalcMode(mode) {
-  const tabComissao = document.getElementById('tabComissao');
-  const tabPremios = document.getElementById('tabPremios');
-  const modeComissao = document.getElementById('modeComissao');
-  const modePremios = document.getElementById('modePremios');
-
-  if (mode === 'comissao') {
-    tabComissao.classList.add('active');
-    tabPremios.classList.remove('active');
-    modeComissao.classList.remove('hidden');
-    modePremios.classList.add('hidden');
-  } else {
-    tabPremios.classList.add('active');
-    tabComissao.classList.remove('active');
-    modePremios.classList.remove('hidden');
-    modeComissao.classList.add('hidden');
-  }
-}
-
-function selectCalcProduct(product) {
-  calcProduct = product;
-  const btnLotep = document.getElementById('calcProdLotep');
-  const btnCap = document.getElementById('calcProdCap');
-  const inputPreco = document.getElementById('inputPrecoUnit');
-
-  if (product === 'lotep') {
-    btnLotep.classList.add('active');
-    btnCap.classList.remove('active');
-    inputPreco.value = '5';
-  } else {
-    btnCap.classList.add('active');
-    btnLotep.classList.remove('active');
-    inputPreco.value = '10';
-  }
-  calculateCommission();
-}
-
-function updateCommissionSlider(val) {
-  document.getElementById('lblComissaoPct').textContent = `${val}%`;
-  calculateCommission();
-}
-
-function setWorkingDays(days) {
-  workingDays = days;
-  document.getElementById('inputDiasTrabalho').value = days;
-  document.querySelectorAll('.pill-day').forEach(pill => {
-    pill.classList.toggle('active', pill.textContent.includes(`${days} dias`));
-  });
-  calculateCommission();
-}
-
-function calculateCommission() {
-  const preco = parseFloat(document.getElementById('inputPrecoUnit').value) || 0;
-  const qtd = parseInt(document.getElementById('inputQtdVendas').value) || 0;
-  const pct = parseFloat(document.getElementById('rangeComissao').value) || 15;
-  const dias = workingDays || 26;
-
-  const fatDia = preco * qtd;
-  const comissaoDia = fatDia * (pct / 100);
-  const comissaoMes = comissaoDia * dias;
-
-  document.getElementById('resFatDia').textContent = formatCurrency(fatDia);
-  document.getElementById('resComissaoDia').textContent = formatCurrency(comissaoDia);
-  document.getElementById('resComissaoMes').textContent = formatCurrency(comissaoMes);
-}
-
-function copyCommissionPitch() {
-  const preco = document.getElementById('inputPrecoUnit').value;
-  const qtd = document.getElementById('inputQtdVendas').value;
-  const pct = document.getElementById('rangeComissao').value;
-  const comDia = document.getElementById('resComissaoDia').textContent;
-  const comMes = document.getElementById('resComissaoMes').textContent;
-  const prodName = calcProduct.toUpperCase();
-
-  const msg = `📊 *MINHA META DE VENDAS - ${prodName}*
-- Produto: ${prodName} (R$ ${preco}/unid)
-- Meta diária: ${qtd} vendas
-- Comissão: ${pct}%
---------------------------------
-💰 *Comissão Diária estimada:* ${comDia}
-🚀 *Projeção no Mês (${workingDays} dias):* ${comMes}
-
-(Planejamento gerado no Portal de Apoio Luquinhas)`;
-
-  copyToClipboard(msg, "Resumo da sua meta copiado com sucesso!");
+// Relógio no topo do celular
+function updatePhoneClock() {
+  const clock = document.getElementById('liveClock');
+  if (!clock) return;
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  clock.textContent = `${h}:${m}`;
 }
 
 // ========================================================
-// SIMULAÇÃO PARA O CLIENTE
+// CASES DE SUCESSO & LINKS DE AÇÕES
 // ========================================================
-function calculateClientSimulation() {
-  const nome = document.getElementById('simNomeCliente').value.trim();
-  const valor = parseFloat(document.getElementById('simValorInvestido').value) || 10;
-  const modalidade = document.getElementById('simTipoProduto').value;
-
-  let precoUnit = 5;
-  let premioMax = 10000;
-  let nomeModalidade = "Bilhete da Sorte LOTEP";
-
-  if (modalidade === 'lotep_diario') {
-    precoUnit = 5;
-    premioMax = 20000;
-    nomeModalidade = "LOTEP - Bilhete da Sorte";
-  } else if (modalidade === 'lotep_super') {
-    precoUnit = 10;
-    premioMax = 50000;
-    nomeModalidade = "LOTEP - Super Cota Especial";
-  } else if (modalidade === 'cap_semanal') {
-    precoUnit = 10;
-    premioMax = 80000;
-    nomeModalidade = "CAP - Título Premiável Semanal";
-  } else if (modalidade === 'cap_mensal') {
-    precoUnit = 20;
-    premioMax = 250000;
-    nomeModalidade = "CAP - Super Prêmio Mensal (SUSEP)";
-  }
-
-  const qtdBilhetes = Math.max(1, Math.floor(valor / precoUnit));
-  const chancesExtras = qtdBilhetes;
-
-  document.getElementById('simTotalChances').textContent = `${qtdBilhetes} Bilhete(s) / Combinações`;
-  document.getElementById('simPremiosEstimados').textContent = `Até ${formatCurrency(premioMax)}`;
-  document.getElementById('simChancesExtras').textContent = `${chancesExtras} Giros da Sorte`;
+function copyCaseStory(caseKey) {
+  const c = CASES_PITCH[caseKey];
+  if (!c) return;
+  copyToClipboard(c.mensagem, `Prova social de ${c.nome.split(' ')[0]} copiada!`);
 }
 
-function copyClientWhatsAppMessage() {
-  const nomeRaw = document.getElementById('simNomeCliente').value.trim();
-  const cliente = nomeRaw ? nomeRaw : "amigo(a)";
-  const valor = document.getElementById('simValorInvestido').value;
-  const chances = document.getElementById('simTotalChances').textContent;
-  const premio = document.getElementById('simPremiosEstimados').textContent;
-  const extras = document.getElementById('simChancesExtras').textContent;
-
-  const msg = `Olá, *${cliente}*! Tudo bem? 🍀
-Fiz aqui uma simulação exclusiva pra você:
-
-Com o investimento de *R$ ${valor},00*, você garante:
-🎯 *${chances}*
-🏆 Prêmios principais de *${premio}*
-🎁 Extra: *${extras}*
-
-Quer que eu já emita seus bilhetes oficiais agora mesmo pelo nosso sistema regulamentado?`;
-
-  copyToClipboard(msg, "Mensagem personalizada copiada para o WhatsApp!");
+function openSiteVendas() {
+  alert("Link do Portal Oficial de Emissão de Vendas configurável pelo gestor.");
 }
 
-// ========================================================
-// CASES DE SUCESSO (INSTAGRAM STYLE)
-// ========================================================
-function viewCase(caseKey) {
-  currentActiveCase = caseKey;
-  const data = CASES_DATA[caseKey];
-  if (!data) return;
-
-  document.getElementById('caseUserImg').src = data.avatar;
-  document.getElementById('caseUserName').innerHTML = `${data.userName} <i class="fa-solid fa-circle-check verified-badge"></i>`;
-  document.getElementById('caseUserLocation').textContent = data.location;
-  document.getElementById('caseHighlight').innerHTML = `<i class="fa-solid fa-trophy"></i> ${data.highlight}`;
-  document.getElementById('caseCaption').textContent = data.caption;
-
-  const tagsContainer = document.getElementById('caseTags');
-  tagsContainer.innerHTML = data.tags.map(t => `<span class="tag-pill">${t}</span>`).join('');
-
-  // Atualizar dots
-  const dots = document.querySelectorAll('.case-nav-dots .dot');
-  const index = ['case1', 'case2', 'case3', 'case4'].indexOf(caseKey);
-  dots.forEach((d, i) => d.classList.toggle('active', i === index));
-}
-
-function copyCurrentCase() {
-  const data = CASES_DATA[currentActiveCase];
-  if (!data) return;
-
-  const msg = `🌟 *CASE DE SUCESSO REAL - Vendas Suporte Luquinhas*
-👤 Vendedor(a): @${data.userName} (${data.location})
-🏆 Resultado: ${data.highlight}
-
-"${data.caption}"
-
-👉 Quem aplica o método oficial tem resultado garantido!`;
-
-  copyToClipboard(msg, "Case de sucesso copiado!");
+function openDriveArtes() {
+  alert("Pasta Google Drive com criativos para Stories, artes prontas e panfletos digitais.");
 }
 
 // ========================================================
@@ -443,7 +490,7 @@ function renderModalSimulador(data) {
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 24px;">
   `;
 
-  sim.modes.forEach((m, idx) => {
+  sim.modes.forEach((m) => {
     html += `
       <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 16px;">
         <div style="font-weight: 700; color: #fff; font-size: 0.95rem; margin-bottom: 6px;">${m.name}</div>
@@ -597,15 +644,10 @@ function simulateDownload(filename) {
 // ========================================================
 // UTILITÁRIOS E TOAST
 // ========================================================
-function formatCurrency(val) {
-  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val);
-}
-
 function copyToClipboard(text, customMsg) {
   navigator.clipboard.writeText(text).then(() => {
     showToast(customMsg || "Copiado para a área de transferência!");
   }).catch(() => {
-    // Fallback manual
     const textarea = document.createElement('textarea');
     textarea.value = text;
     document.body.appendChild(textarea);
@@ -640,3 +682,10 @@ function escapeHtml(string) {
 function escapeQuotes(string) {
   return String(string).replace(/'/g, "\\'").replace(/"/g, '\\"');
 }
+
+// Inicializar Relógio e Display
+document.addEventListener('DOMContentLoaded', () => {
+  updatePhoneClock();
+  setInterval(updatePhoneClock, 10000);
+  updateCalcDisplay();
+});

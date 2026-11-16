@@ -42,7 +42,7 @@
   --shadow-glow-blue: 0 0 40px rgba(14, 165, 233, 0.22);
   --shadow-glow-green: 0 0 40px rgba(16, 185, 129, 0.22);
 
-  --transition-fast: 0.2s ease;
+  --transition-fast: 0.15s ease;
   --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -439,393 +439,219 @@ body {
 }
 
 /* ========================================================
-   SEÇÃO DE BAIXO: CALCULADORA (ESQ) + LINKS & CASES (DIR)
+   SEÇÃO INFERIOR: CALCULADORA DE CELULAR (ESQ) + CASES (DIR)
    ======================================================== */
 .bottom-tools-grid {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 24px;
-}
-
-/* Header estilizado comum nos blocos */
-.card-header-styled {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: 20px;
-}
-
-.card-header-styled.mini {
-  padding-bottom: 14px;
-  margin-bottom: 16px;
-}
-
-.header-icon-box {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-md);
-  background: rgba(14, 165, 233, 0.15);
-  color: var(--lotep-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  flex-shrink: 0;
-}
-
-.header-icon-box.gold {
-  background: rgba(245, 158, 11, 0.15);
-  color: var(--gold-accent);
-}
-
-.card-header-styled h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.card-header-styled p {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-/* Bloco Calculadora */
-.calc-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
-  padding: 28px;
-  box-shadow: var(--shadow-sm);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.calc-modes-tabs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  background: var(--bg-dark);
-  padding: 6px;
-  border-radius: var(--radius-md);
-  margin-bottom: 22px;
-  border: 1px solid var(--border-color);
-}
-
-.mode-tab {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  font-weight: 600;
-  font-size: 0.88rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: var(--transition-fast);
-}
-
-.mode-tab.active {
-  background: var(--bg-card-subtle);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.calc-body {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  flex-grow: 1;
-}
-
-.calc-body.hidden {
-  display: none;
-}
-
-/* Formulários da calculadora */
-.form-row {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-row label, .form-group label {
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: #cbd5e1;
-}
-
-.product-pills {
-  display: flex;
-  gap: 10px;
-}
-
-.pill {
-  flex: 1;
-  background: var(--bg-dark);
-  border: 1px solid var(--border-color);
-  color: var(--text-muted);
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  font-size: 0.86rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: var(--transition-fast);
-}
-
-.pill.active#calcProdLotep {
-  background: rgba(14, 165, 233, 0.15);
-  color: var(--lotep-light);
-  border-color: var(--lotep-primary);
-}
-
-.pill.active#calcProdCap {
-  background: rgba(16, 185, 129, 0.15);
-  color: var(--cap-light);
-  border-color: var(--cap-primary);
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.input-with-symbol {
-  display: flex;
-  align-items: center;
-  background: var(--bg-dark);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  padding: 0 12px;
-  transition: border-color 0.2s ease;
-}
-
-.input-with-symbol:focus-within {
-  border-color: var(--lotep-light);
-  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
-}
-
-.input-with-symbol span {
-  color: var(--text-dim);
-  font-weight: 600;
-  font-size: 0.85rem;
-}
-
-.input-with-symbol input {
-  width: 100%;
-  background: transparent;
-  border: none;
-  padding: 10px 8px;
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 600;
-  outline: none;
-}
-
-.styled-input, .styled-select {
-  width: 100%;
-  background: var(--bg-dark);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-  color: #ffffff;
-  font-size: 0.9rem;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.styled-input:focus, .styled-select:focus {
-  border-color: var(--lotep-light);
-}
-
-/* Range Slider */
-.label-with-val {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-.val-highlight {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--gold-accent);
-}
-
-input[type="range"] {
-  width: 100%;
-  accent-color: var(--lotep-glow);
-  cursor: pointer;
-}
-
-.slider-ticks {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.72rem;
-  color: var(--text-dim);
-  margin-top: 4px;
-}
-
-.days-pills {
-  display: flex;
-  gap: 8px;
-  margin-top: 6px;
-}
-
-.pill-day {
-  flex: 1;
-  background: var(--bg-dark);
-  border: 1px solid var(--border-color);
-  color: var(--text-muted);
-  padding: 6px 10px;
-  border-radius: var(--radius-sm);
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: var(--transition-fast);
-}
-
-.pill-day.active {
-  background: var(--bg-card-subtle);
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.2);
-  font-weight: 700;
-}
-
-/* Box de Resultados */
-.results-box {
-  background: linear-gradient(180deg, #162033, #0f1726);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-md);
-  padding: 16px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 4px;
-}
-
-.res-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.88rem;
-  color: var(--text-muted);
-}
-
-.res-item .res-value {
-  font-weight: 700;
-  color: #ffffff;
-  font-size: 1.05rem;
-}
-
-.res-item.highlight-green .res-value {
-  color: #34d399;
-  font-size: 1.15rem;
-}
-
-.res-item.highlight-gold {
-  border-top: 1px dashed rgba(255, 255, 255, 0.1);
-  padding-top: 10px;
-}
-
-.res-item.highlight-gold .res-label {
-  font-weight: 700;
-  color: #fde68a;
-}
-
-.res-item.highlight-gold .big-res {
-  font-size: 1.45rem;
-  font-weight: 800;
-  color: var(--gold-accent);
-}
-
-.btn-copy-simulation {
-  background: var(--bg-card-subtle);
-  border: 1px solid var(--border-color);
-  color: #ffffff;
-  padding: 12px 18px;
-  border-radius: var(--radius-md);
-  font-weight: 700;
-  font-size: 0.88rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-  margin-top: auto;
-}
-
-.btn-copy-simulation:hover {
-  background: rgba(255, 255, 255, 0.12);
-  transform: translateY(-2px);
-}
-
-.btn-whatsapp {
-  background: #15803d;
-  border-color: #22c55e;
-}
-
-.btn-whatsapp:hover {
-  background: #16a34a;
-}
-
-/* Modo Cliente na Calculadora */
-.client-sim-card {
-  background: var(--bg-dark);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.sim-badge {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--gold-accent);
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-
-.sim-stat-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.88rem;
-  color: var(--text-muted);
-}
-
-.sim-stat-row strong {
-  color: #ffffff;
-}
-
-.text-gold {
-  color: var(--gold-accent) !important;
-  font-size: 1.1rem;
+  grid-template-columns: 420px 1fr;
+  gap: 32px;
+  align-items: start;
 }
 
 /* ========================================================
-   COLUNA DA DIREITA: LINKS RÁPIDOS E CASES (INSTAGRAM)
+   WIDGET: CALCULADORA ESTILO CELULAR SMARTPHONE
    ======================================================== */
-.links-cases-column {
+.calc-phone-column {
+  display: flex;
+  justify-content: center;
+}
+
+.phone-calc-wrapper {
+  width: 100%;
+  max-width: 380px;
+  background: #000000;
+  border: 4px solid #1e293b;
+  border-radius: 44px;
+  padding: 20px 18px 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(14, 165, 233, 0.15);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  user-select: none;
+}
+
+.phone-calc-top-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.phone-speaker {
+  width: 70px;
+  height: 5px;
+  background: #334155;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+.phone-status-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  font-weight: 600;
+  padding: 0 8px;
+}
+
+.phone-indicators {
+  display: flex;
+  gap: 6px;
+  font-size: 0.75rem;
+}
+
+/* Display da Calculadora */
+.calc-display-container {
+  padding: 18px 12px 10px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 120px;
+}
+
+.calc-history {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  min-height: 22px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calc-main-display {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+  overflow-x: auto;
+  scrollbar-width: none;
+  white-space: nowrap;
+}
+
+.calc-main-display::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ações Rápidas de Vendas */
+.calc-quick-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.quick-btn {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  border-radius: 10px;
+  padding: 6px 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.quick-btn:hover {
+  background: #334155;
+  color: #fff;
+}
+
+.btn-copy-res {
+  background: rgba(14, 165, 233, 0.2);
+  color: var(--lotep-light);
+  border-color: rgba(14, 165, 233, 0.4);
+}
+
+.btn-copy-res:hover {
+  background: var(--lotep-primary);
+  color: #fff;
+}
+
+/* Teclado Celular */
+.calc-keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 4px;
+}
+
+.calc-key {
+  height: 64px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.45rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease, filter 0.15s ease;
+  outline: none;
+}
+
+.calc-key:active {
+  transform: scale(0.92);
+  filter: brightness(1.25);
+}
+
+/* Cores das teclas estilo iPhone */
+.num-key {
+  background: #27272a;
+  color: #ffffff;
+}
+
+.num-key:hover {
+  background: #3f3f46;
+}
+
+.func-key {
+  background: #52525b;
+  color: #f4f4f5;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.func-key:hover {
+  background: #71717a;
+}
+
+.op-key, .eq-key {
+  background: #f59e0b;
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.op-key:hover, .eq-key:hover {
+  background: #d97706;
+}
+
+.phone-home-indicator {
+  width: 130px;
+  height: 4px;
+  background: #64748b;
+  border-radius: 999px;
+  margin: 16px auto 0;
+}
+
+/* ========================================================
+   COLUNA DA DIREITA: CASES & LINKS (FOTO PERFIL + INSTA + AÇÕES)
+   ======================================================== */
+.cases-links-column {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.block-card {
+/* Card de Perfil Principal */
+.profile-actions-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-xl);
@@ -833,14 +659,114 @@ input[type="range"] {
   box-shadow: var(--shadow-sm);
 }
 
-/* Grid de Links Rápidos */
-.quick-links-grid {
+.profile-row-header {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.profile-photo-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profile-photo {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #0ea5e9;
+  box-shadow: 0 0 16px rgba(14, 165, 233, 0.4);
+}
+
+.profile-online-badge {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+  width: 14px;
+  height: 14px;
+  background: #10b981;
+  border: 2px solid #0b0f19;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.profile-info-side {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-name-row h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.verified-icon {
+  color: #38bdf8;
+  font-size: 1rem;
+}
+
+.profile-bio {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Link do Instagram do lado */
+.link-insta-side {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(240, 148, 51, 0.12);
+  border: 1px solid rgba(220, 39, 67, 0.35);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 700;
+  width: fit-content;
+  margin-top: 4px;
+  transition: var(--transition-fast);
+}
+
+.link-insta-side i {
+  color: #f09433;
+  font-size: 1.05rem;
+}
+
+.link-insta-side:hover {
+  background: var(--insta-gradient);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(220, 39, 67, 0.4);
+}
+
+.insta-badge-pill {
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 0.68rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* Grid de Botões de Ações */
+.action-buttons-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
-.link-card {
+.act-btn {
   background: var(--bg-dark);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
@@ -850,59 +776,40 @@ input[type="range"] {
   align-items: center;
   gap: 12px;
   transition: all 0.25s ease;
-  position: relative;
 }
 
-.link-card:hover {
-  background: var(--bg-card-subtle);
-  transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
-.link-icon-circle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  color: #fff;
+.act-btn i:first-child {
+  font-size: 1.35rem;
   flex-shrink: 0;
 }
 
-.link-instagram .link-icon-circle {
-  background: var(--insta-gradient);
+.act-whatsapp i:first-child { color: var(--whatsapp-color); }
+.act-site i:first-child { color: var(--lotep-light); }
+.act-direct i:first-child { color: #f43f5e; }
+.act-drive i:first-child { color: var(--gold-accent); }
+
+.act-btn:hover {
+  background: var(--bg-card-subtle);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 
-.link-whatsapp .link-icon-circle {
-  background: var(--whatsapp-color);
-}
-
-.link-site .link-icon-circle {
-  background: linear-gradient(135deg, #0284c7, #38bdf8);
-}
-
-.link-drive .link-icon-circle {
-  background: linear-gradient(135deg, #f59e0b, #eab308);
-}
-
-.link-text {
+.act-btn-text {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  flex-grow: 1;
 }
 
-.link-title {
-  font-size: 0.86rem;
-  font-weight: 700;
-  color: #ffffff;
+.act-btn-text strong {
+  font-size: 0.88rem;
+  color: #fff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.link-desc {
+.act-btn-text span {
   font-size: 0.72rem;
   color: var(--text-dim);
   white-space: nowrap;
@@ -910,189 +817,186 @@ input[type="range"] {
   text-overflow: ellipsis;
 }
 
-.external-icon {
+.act-arrow {
   font-size: 0.75rem;
   color: var(--text-dim);
   margin-left: auto;
 }
 
-/* CASES DE SUCESSO - ESTILO INSTAGRAM */
-.stories-bar {
-  display: flex;
-  gap: 14px;
-  overflow-x: auto;
-  padding-bottom: 12px;
-  margin-bottom: 16px;
+/* ========================================================
+   SEÇÃO DE CASES COM FOTO + LINK INSTA + AÇÕES AO LADO
+   ======================================================== */
+.cases-section-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
 }
 
-.story-circle {
+.cases-header-title {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  flex-shrink: 0;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.story-circle span {
-  font-size: 0.74rem;
-  color: var(--text-muted);
-}
-
-.story-avatar {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  padding: 2px;
-  background: var(--insta-gradient);
+.cases-title-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--gold-accent);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease;
+  font-size: 1.15rem;
+  flex-shrink: 0;
 }
 
-.story-avatar img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--bg-card);
+.cases-header-title h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
 }
 
-.story-circle:hover .story-avatar {
-  transform: scale(1.08);
+.cases-header-title p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
 }
 
-.insta-post-card {
-  background: var(--bg-dark);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 18px;
+.cases-cards-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  gap: 14px;
 }
 
-.insta-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.insta-user-meta {
+.case-item-row {
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
+  transition: all 0.2s ease;
 }
 
-.insta-avatar {
-  width: 40px;
-  height: 40px;
+.case-item-row:hover {
+  background: var(--bg-card-subtle);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+.case-user-left {
+  flex-shrink: 0;
+}
+
+.case-avatar {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
-.insta-username {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #fff;
+.case-user-middle {
+  flex-grow: 1;
   display: flex;
-  align-items: center;
-  gap: 4px;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
 }
 
-.verified-badge {
-  color: var(--lotep-light);
-  font-size: 0.75rem;
-}
-
-.insta-location {
-  font-size: 0.72rem;
-  color: var(--text-dim);
-}
-
-.btn-share-case {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #cbd5e1;
-  padding: 6px 10px;
-  border-radius: var(--radius-sm);
-  font-size: 0.74rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: var(--transition-fast);
-}
-
-.btn-share-case:hover {
-  background: rgba(255, 255, 255, 0.16);
-  color: #fff;
-}
-
-.insta-badge-callout {
-  background: linear-gradient(90deg, rgba(245, 158, 11, 0.15), rgba(16, 185, 129, 0.1));
-  border-left: 3px solid var(--gold-accent);
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 0.84rem;
-  font-weight: 700;
-  color: #fde68a;
+.case-user-top {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.insta-caption {
-  font-size: 0.86rem;
-  color: #e2e8f0;
-  line-height: 1.55;
-  font-style: italic;
+.case-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #fff;
 }
 
-.insta-footer-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.case-tags {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.tag-pill {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--lotep-light);
-  background: rgba(14, 165, 233, 0.1);
+.case-badge-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
   padding: 2px 8px;
-  border-radius: 4px;
-}
-
-.case-nav-dots {
-  display: flex;
-  gap: 6px;
-}
-
-.case-nav-dots .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.case-nav-dots .dot.active {
-  background: var(--lotep-light);
-  width: 18px;
   border-radius: 999px;
+  text-transform: uppercase;
+}
+
+/* Link do Insta ao lado do nome do case */
+.case-insta-link {
+  font-size: 0.78rem;
+  color: #f09433;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.case-insta-link:hover {
+  text-decoration: underline;
+  color: #ffaa5a;
+}
+
+.case-story-text {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+.case-story-text strong {
+  color: #fde68a;
+}
+
+/* Ações do lado de cada case */
+.case-actions-side {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.case-action-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+.case-action-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.btn-send-case {
+  background: rgba(37, 211, 102, 0.15);
+  border-color: rgba(37, 211, 102, 0.35);
+  color: #a7f3d0;
+}
+
+.btn-send-case:hover {
+  background: var(--whatsapp-color);
+  color: #fff;
 }
 
 /* ========================================================
@@ -1527,10 +1431,18 @@ input[type="range"] {
   color: #cbd5e1;
 }
 
+.git-pill {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: var(--lotep-light);
+  font-family: 'JetBrains Mono', monospace;
+}
+
 /* ========================================================
    RESPONSIVIDADE (MOBILE & TABLET)
    ======================================================== */
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .hub-cards-grid {
     grid-template-columns: 1fr;
     gap: 18px;
@@ -1538,34 +1450,46 @@ input[type="range"] {
 
   .bottom-tools-grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 32px;
   }
 
-  .quick-links-grid {
+  .calc-phone-column {
+    order: 2;
+  }
+
+  .cases-links-column {
+    order: 1;
+  }
+
+  .action-buttons-grid {
     grid-template-columns: 1fr;
-  }
-
-  .brand-title {
-    font-size: 1.4rem;
   }
 }
 
 @media (max-width: 600px) {
-  .form-grid {
-    grid-template-columns: 1fr;
+  .phone-calc-wrapper {
+    max-width: 100%;
+    border-radius: 32px;
+    padding: 16px 12px;
   }
 
-  .header-actions {
+  .calc-key {
+    height: 56px;
+    font-size: 1.3rem;
+  }
+
+  .case-item-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .case-actions-side {
     width: 100%;
-    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 8px;
   }
 
-  .modal-dialog {
-    max-height: 95vh;
-  }
-
-  .modal-header, .modal-tabs, .modal-body, .modal-footer {
-    padding-left: 16px;
-    padding-right: 16px;
+  .case-action-btn {
+    flex: 1;
   }
 }
