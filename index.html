@@ -6,7 +6,7 @@
   <title>Portal de Apoio a Vendas | Luquinhas - LOTEP & CAP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -22,15 +22,15 @@
       <div class="brand">
         <div class="brand-badge">MATERIAL DE APOIO & SUPORTE</div>
         <h1 class="brand-title">Vendas Suporte <span class="highlight">Luquinhas</span></h1>
-        <p class="brand-subtitle">Central de Materiais de Apoio, Simuladores, Legislações & Links Oficiais</p>
+        <p class="brand-subtitle">Central de Materiais de Apoio, Simuladores Oficiais, Legislações & Links</p>
       </div>
       <div class="header-actions">
         <div class="badge-status">
           <span class="pulse-dot"></span>
-          Legislações & Tabela 2026 Ativas
+          Simuladores & Tabela 2026 Ativos
         </div>
         <a href="#area-calculadora" class="btn-quick-calc">
-          <i class="fa-solid fa-mobile-screen-button"></i>
+          <i class="fa-solid fa-calculator"></i>
           <span>Calculadora</span>
         </a>
       </div>
@@ -42,15 +42,14 @@
     <!-- SEÇÃO PRINCIPAL TOPO: 2 BOTÕES PRINCIPAIS (LOTEP & CAP) -->
     <section class="hub-selection-section">
       <div class="section-title-wrap">
-        <span class="section-tag">MATERIAIS E SIMULADORES EXCLUSIVOS</span>
+        <span class="section-tag">SIMULADORES OFICIAIS & LEGISLAÇÕES</span>
         <h2>Selecione o Produto para Acessar os Recursos</h2>
-        <p>Acesse simuladores interativos, base legislativa oficial, scripts prontos e argumentos de venda.</p>
+        <p>Acesse diretamente os simuladores homologados, legislações vigentes e materiais de apoio.</p>
       </div>
 
       <div class="hub-cards-grid">
         <!-- CARD LOTEP -->
-        <div class="hub-card hub-lotep" id="cardLotep" onclick="openProductModal('lotep')">
-          <div class="card-glow"></div>
+        <div class="hub-card hub-lotep" id="cardLotep">
           <div class="card-badge-top">
             <span class="badge-tag lotep-tag"><i class="fa-solid fa-ticket"></i> Loteria Estadual</span>
             <span class="badge-verified"><i class="fa-solid fa-circle-check"></i> Oficial Regulamentado</span>
@@ -67,27 +66,33 @@
           </div>
 
           <p class="hub-desc">
-            Simulador de bilhetes e combinações, prêmios diários, portarias estaduais vigentes e scripts de abordagem comprovados para WhatsApp e balcão.
+            Acesse o simulador oficial Sanasorte, portarias estaduais e scripts de fechamento validados para WhatsApp e balcão.
           </p>
 
-          <div class="hub-features">
-            <div class="feature-item"><i class="fa-solid fa-check"></i> Simulador de Bilhetes & Cotas</div>
-            <div class="feature-item"><i class="fa-solid fa-check"></i> Decretos & Leis Vigentes</div>
-            <div class="feature-item"><i class="fa-solid fa-check"></i> Scripts para Fechamento Rápido</div>
+          <div class="hub-links-cluster">
+            <!-- Link Direto do Simulador LOTEP -->
+            <a href="https://simulador.sanasorte.com.br/" target="_blank" rel="noopener noreferrer" class="simulator-direct-btn lotep-sim-btn">
+              <div class="sim-btn-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+              <div class="sim-btn-text">
+                <strong>Simulador LOTEP (Sanasorte)</strong>
+                <span>simulador.sanasorte.com.br</span>
+              </div>
+            </a>
           </div>
 
-          <div class="hub-action-btn btn-lotep">
-            <span>Acessar Material LOTEP</span>
-            <i class="fa-solid fa-arrow-right"></i>
+          <div class="hub-footer-buttons">
+            <button class="hub-action-btn btn-lotep" onclick="openProductModal('lotep')">
+              <i class="fa-solid fa-scale-balanced"></i>
+              <span>Legislações & Scripts LOTEP</span>
+            </button>
           </div>
         </div>
 
         <!-- CARD CAP -->
-        <div class="hub-card hub-cap" id="cardCap" onclick="openProductModal('cap')">
-          <div class="card-glow"></div>
+        <div class="hub-card hub-cap" id="cardCap">
           <div class="card-badge-top">
             <span class="badge-tag cap-tag"><i class="fa-solid fa-shield-halved"></i> Capitalização SUSEP</span>
-            <span class="badge-verified"><i class="fa-solid fa-trophy"></i> Sorteios Semanais</span>
+            <span class="badge-verified"><i class="fa-solid fa-trophy"></i> Sorteios Oficiais</span>
           </div>
 
           <div class="card-icon-title">
@@ -101,261 +106,193 @@
           </div>
 
           <p class="hub-desc">
-            Simulador de retorno e chances de sorteio, normativas SUSEP, comparativo rentável frente à poupança e roteiros para contornar objeções de clientes.
+            Simuladores oficiais de Incentivo e Filantropia, normativas SUSEP e comparativos frente à poupança.
           </p>
 
-          <div class="hub-features">
-            <div class="feature-item"><i class="fa-solid fa-check"></i> Simulador de Chances & Premiações</div>
-            <div class="feature-item"><i class="fa-solid fa-check"></i> Regulamentação Oficial SUSEP</div>
-            <div class="feature-item"><i class="fa-solid fa-check"></i> Comparativo Venda Convincente</div>
+          <div class="hub-links-cluster">
+            <!-- Link 1: Simulador Capitalização Incentivo -->
+            <a href="https://simuladplayyourwayorcap.lovable.app/auth" target="_blank" rel="noopener noreferrer" class="simulator-direct-btn cap-sim-btn">
+              <div class="sim-btn-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+              <div class="sim-btn-text">
+                <strong>Simulador CAP - Incentivo</strong>
+                <span>simuladplayyourwayorcap.lovable.app</span>
+              </div>
+            </a>
+
+            <!-- Link 2: Simulador Capitalização Filantropia (Planilha Oficial) -->
+            <a href="https://docs.google.com/spreadsheets/d/162MhF_MiFt4oliIccJStU55pEJ4DRu4oMk5O9kIOAEI/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="simulator-direct-btn sheet-sim-btn">
+              <div class="sim-btn-icon"><i class="fa-solid fa-file-excel"></i></div>
+              <div class="sim-btn-text">
+                <strong>Simulador CAP - Filantropia</strong>
+                <span>Planilha Oficial Google Sheets</span>
+              </div>
+            </a>
           </div>
 
-          <div class="hub-action-btn btn-cap">
-            <span>Acessar Material CAP</span>
-            <i class="fa-solid fa-arrow-right"></i>
+          <div class="hub-footer-buttons">
+            <button class="hub-action-btn btn-cap" onclick="openProductModal('cap')">
+              <i class="fa-solid fa-scale-balanced"></i>
+              <span>Legislações SUSEP & Scripts CAP</span>
+            </button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SEÇÃO DE BAIXO: CALCULADORA DE CELULAR (ESQUERDA) + CASES E LINKS (DIREITA) -->
+    <!-- SEÇÃO INFERIOR: CALCULADORA ESTILO CELULAR (ESQUERDA) + CASES (DIREITA) -->
     <section class="bottom-tools-grid" id="area-calculadora">
 
-      <!-- COLUNA DA ESQUERDA: CALCULADORA ESTILO CELULAR PADRÃO -->
+      <!-- COLUNA DA ESQUERDA: CALCULADORA TIPO CELULAR PADRÃO (EXATAMENTE COMO A FOTO 1) -->
       <div class="calc-phone-column">
-        <div class="phone-calc-wrapper">
-          <div class="phone-calc-top-header">
-            <div class="phone-speaker"></div>
-            <div class="phone-status-row">
-              <span class="phone-time" id="liveClock">17:55</span>
-              <div class="phone-indicators">
-                <i class="fa-solid fa-signal"></i>
-                <i class="fa-solid fa-wifi"></i>
-                <i class="fa-solid fa-battery-full"></i>
-              </div>
-            </div>
+        <div class="ios-calculator">
+          <!-- Display -->
+          <div class="ios-display-box">
+            <div class="ios-calc-display" id="iosCalcDisplay">0</div>
           </div>
 
-          <div class="phone-calc-body">
-            <!-- Display Digital da Calculadora -->
-            <div class="calc-display-container">
-              <div class="calc-history" id="calcHistory">&nbsp;</div>
-              <div class="calc-main-display" id="calcDisplay">0</div>
-            </div>
+          <!-- Teclado Exato da Foto 1 -->
+          <div class="ios-keypad">
+            <!-- Linha 1 -->
+            <button class="ios-btn btn-gray" onclick="iosCalcInput('AC')" id="btnAC">AC</button>
+            <button class="ios-btn btn-gray" onclick="iosCalcInput('+/-')">+/-</button>
+            <button class="ios-btn btn-gray" onclick="iosCalcInput('%')">%</button>
+            <button class="ios-btn btn-orange" onclick="iosCalcInput('/')">÷</button>
 
-            <!-- Botões Rápidos de Apoio a Vendas no Celular -->
-            <div class="calc-quick-actions">
-              <button class="quick-btn" onclick="calcQuickSales(5)" title="Calcular bilhete R$ 5">+ R$ 5</button>
-              <button class="quick-btn" onclick="calcQuickSales(10)" title="Calcular cota R$ 10">+ R$ 10</button>
-              <button class="quick-btn" onclick="calcQuickPercent(15)" title="Calcular comissão 15%">15% Com.</button>
-              <button class="quick-btn btn-copy-res" onclick="copyCalcResult()" title="Copiar valor calculado">
-                <i class="fa-regular fa-copy"></i> Copiar
-              </button>
-            </div>
+            <!-- Linha 2 -->
+            <button class="ios-btn btn-dark" onclick="iosCalcInput('7')">7</button>
+            <button class="ios-btn btn-dark" onclick="iosCalcInput('8')">8</button>
+            <button class="ios-btn btn-dark" onclick="iosCalcInput('9')">9</button>
+            <button class="ios-btn btn-orange" onclick="iosCalcInput('*')">×</button>
 
-            <!-- Teclado Numérico da Calculadora Estilo Celular -->
-            <div class="calc-keypad">
-              <button class="calc-key func-key" onclick="calcInput('AC')">AC</button>
-              <button class="calc-key func-key" onclick="calcInput('+/-')">+/-</button>
-              <button class="calc-key func-key" onclick="calcInput('%')">%</button>
-              <button class="calc-key op-key" onclick="calcInput('/')">÷</button>
+            <!-- Linha 3 -->
+            <button class="ios-btn btn-dark" onclick="iosCalcInput('4')">4</button>
+            <button class="ios-btn btn-dark" onclick="iosCalcInput('5')">5</button>
+            <button class="ios-btn btn-dark" onclick="iosCalcInput('6')">6</button>
+            <button class="ios-btn btn-orange" onclick="iosCalcInput('-')">−</button>
 
-              <button class="calc-key num-key" onclick="calcInput('7')">7</button>
-              <button class="calc-key num-key" onclick="calcInput('8')">8</button>
-              <button class="calc-key num-key" onclick="calcInput('9')">9</button>
-              <button class="calc-key op-key" onclick="calcInput('*')">×</button>
+            <!-- Linha 4 -->
+            <button class="ios-btn btn-dark" onclick="iosCalcInput('1')">1</button>
+            <button class="ios-btn btn-dark" onclick="iosCalcInput('2')">2</button>
+            <button class="ios-btn btn-dark" onclick="iosCalcInput('3')">3</button>
+            <button class="ios-btn btn-orange" onclick="iosCalcInput('+')">+</button>
 
-              <button class="calc-key num-key" onclick="calcInput('4')">4</button>
-              <button class="calc-key num-key" onclick="calcInput('5')">5</button>
-              <button class="calc-key num-key" onclick="calcInput('6')">6</button>
-              <button class="calc-key op-key" onclick="calcInput('-')">−</button>
-
-              <button class="calc-key num-key" onclick="calcInput('1')">1</button>
-              <button class="calc-key num-key" onclick="calcInput('2')">2</button>
-              <button class="calc-key num-key" onclick="calcInput('3')">3</button>
-              <button class="calc-key op-key" onclick="calcInput('+')">+</button>
-
-              <button class="calc-key num-key zero-key" onclick="calcInput('0')">0</button>
-              <button class="calc-key num-key" onclick="calcInput('.')">,</button>
-              <button class="calc-key func-key" onclick="calcInput('DEL')"><i class="fa-solid fa-delete-left"></i></button>
-              <button class="calc-key eq-key" onclick="calcInput('=')">=</button>
-            </div>
+            <!-- Linha 5 -->
+            <button class="ios-btn btn-dark btn-zero" onclick="iosCalcInput('0')">0</button>
+            <button class="ios-btn btn-dark" onclick="iosCalcInput('.')">,</button>
+            <button class="ios-btn btn-orange" onclick="iosCalcInput('=')">=</button>
           </div>
-
-          <div class="phone-home-indicator"></div>
         </div>
       </div>
 
-      <!-- COLUNA DA DIREITA: CASES & LINKS (FOTO PERFIL + INSTA + LINKS DE AÇÕES) -->
-      <div class="cases-links-column">
-
-        <!-- CARD DE PERFIL PRINCIPAL COM FOTO, LINK DO INSTA E LINKS DE AÇÕES -->
-        <div class="profile-actions-card">
-          <div class="profile-row-header">
-            <div class="profile-photo-wrap">
-              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=180&q=80" alt="Luquinhas Vendas" class="profile-photo">
-              <span class="profile-online-badge" title="Online agora para suporte"></span>
-            </div>
-            <div class="profile-info-side">
-              <div class="profile-name-row">
-                <h3>Luquinhas • Vendas Suporte</h3>
-                <span class="verified-icon" title="Verificado Oficial"><i class="fa-solid fa-circle-check"></i></span>
-              </div>
-              <p class="profile-bio">Especialista em Suporte Comercial LOTEP & CAP Premiável. Material de apoio, metas e conversão diária.</p>
-              
-              <!-- Link do Instagram ao Lado -->
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="link-insta-side">
-                <i class="fa-brands fa-instagram"></i>
-                <span class="insta-handle">@luquinhas.vendas</span>
-                <span class="insta-badge-pill">Seguir no Insta</span>
-              </a>
-            </div>
+      <!-- COLUNA DA DIREITA: CASES (EXATAMENTE COMO A FOTO 2) -->
+      <div class="cases-reference-column">
+        <div class="cases-panel-card">
+          <div class="cases-panel-header">
+            <span class="panel-dot"></span>
+            <h3>Cases & Links Oficiais</h3>
           </div>
 
-          <!-- Links de Ações do Lado/Abaixo -->
-          <div class="action-buttons-grid">
-            <a href="https://wa.me/?text=Ol%C3%A1%2C%20gostaria%20de%20tirar%20uma%20d%C3%BAvida%20sobre%20as%20vendas%20LOTEP%20e%20CAP" target="_blank" rel="noopener noreferrer" class="act-btn act-whatsapp">
-              <i class="fa-brands fa-whatsapp"></i>
-              <div class="act-btn-text">
-                <strong>WhatsApp Direto</strong>
-                <span>Plantão de Vendas & Suporte</span>
-              </div>
-              <i class="fa-solid fa-chevron-right act-arrow"></i>
-            </a>
+          <div class="cases-list-group">
 
-            <a href="#" onclick="openSiteVendas(); return false;" class="act-btn act-site">
-              <i class="fa-solid fa-bag-shopping"></i>
-              <div class="act-btn-text">
-                <strong>Site Oficial de Vendas</strong>
-                <span>Emitir bilhetes e cotas online</span>
+            <!-- Item 1 -->
+            <div class="case-row-item">
+              <div class="case-avatar-col">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=140&q=80" alt="JoseAldo Cunha" class="case-round-avatar">
               </div>
-              <i class="fa-solid fa-chevron-right act-arrow"></i>
-            </a>
-
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="act-btn act-direct">
-              <i class="fa-regular fa-paper-plane"></i>
-              <div class="act-btn-text">
-                <strong>Direct do Instagram</strong>
-                <span>Fale diretamente no direct</span>
+              <div class="case-name-col">
+                <span class="case-person-name">JoseAldo Cunha</span>
               </div>
-              <i class="fa-solid fa-chevron-right act-arrow"></i>
-            </a>
-
-            <a href="#" onclick="openDriveArtes(); return false;" class="act-btn act-drive">
-              <i class="fa-solid fa-folder-open"></i>
-              <div class="act-btn-text">
-                <strong>Drive de Criativos</strong>
-                <span>Banners e artes para Stories</span>
-              </div>
-              <i class="fa-solid fa-chevron-right act-arrow"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- SEÇÃO DE CASES DE SUCESSO (FOTO PERFIL + LINK INSTA + AÇÕES AO LADO) -->
-        <div class="cases-section-card">
-          <div class="cases-header-title">
-            <div class="cases-title-icon"><i class="fa-solid fa-trophy"></i></div>
-            <div>
-              <h3>Cases de Sucesso & Prova Social</h3>
-              <p>Histórias reais com foto de perfil, Instagram do vendedor e botões de ação.</p>
-            </div>
-          </div>
-
-          <!-- LISTA DE CASES -->
-          <div class="cases-cards-list">
-
-            <!-- Case 1 -->
-            <div class="case-item-row">
-              <div class="case-user-left">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Mariana" class="case-avatar">
-              </div>
-              <div class="case-user-middle">
-                <div class="case-user-top">
-                  <strong class="case-name">Mariana Souza</strong>
-                  <span class="case-badge-pill lotep-tag">Destaque LOTEP</span>
-                </div>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="case-insta-link">
-                  <i class="fa-brands fa-instagram"></i> @mariana.vendas
-                </a>
-                <p class="case-story-text">
-                  "Bati <strong>R$ 5.840,00 em comissões</strong> no primeiro mês usando o script oficial de abordagem com a tabela de chances!"
-                </p>
-              </div>
-              <div class="case-actions-side">
-                <button class="case-action-btn btn-copy-case" onclick="copyCaseStory('mariana')" title="Copiar prova social">
-                  <i class="fa-regular fa-copy"></i> <span>Copiar</span>
-                </button>
-                <a href="https://wa.me/?text=Ol%C3%A1%2C%20veja%20o%20case%20da%20Mariana%20que%20faturou%20R%24%205.840%20com%20a%20LOTEP!" target="_blank" class="case-action-btn btn-send-case" title="Mandar no WhatsApp">
-                  <i class="fa-brands fa-whatsapp"></i> <span>Mandar</span>
+              <div class="case-link-col">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="case-link-pill">
+                  https://instagram.com/josealdo
                 </a>
               </div>
             </div>
 
-            <!-- Case 2 -->
-            <div class="case-item-row">
-              <div class="case-user-left">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Lucas" class="case-avatar">
+            <!-- Item 2 -->
+            <div class="case-row-item">
+              <div class="case-avatar-col">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=140&q=80" alt="Mariana Souza" class="case-round-avatar">
               </div>
-              <div class="case-user-middle">
-                <div class="case-user-top">
-                  <strong class="case-name">Lucas Andrade</strong>
-                  <span class="case-badge-pill cap-tag">Especialista CAP</span>
-                </div>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="case-insta-link">
-                  <i class="fa-brands fa-instagram"></i> @lucas.consultoria
-                </a>
-                <p class="case-story-text">
-                  "Cliente meu ganhou <strong>R$ 35.000,00 no sorteio semanal</strong> do CAP. Hoje vendo mais de 50 títulos só por indicação!"
-                </p>
+              <div class="case-name-col">
+                <span class="case-person-name">Mariana Souza</span>
               </div>
-              <div class="case-actions-side">
-                <button class="case-action-btn btn-copy-case" onclick="copyCaseStory('lucas')" title="Copiar prova social">
-                  <i class="fa-regular fa-copy"></i> <span>Copiar</span>
-                </button>
-                <a href="https://wa.me/?text=Ol%C3%A1%2C%20veja%20o%20caso%20do%20cliente%20do%20Lucas%20que%20levou%20R%24%2035%20mil%20no%20CAP!" target="_blank" class="case-action-btn btn-send-case" title="Mandar no WhatsApp">
-                  <i class="fa-brands fa-whatsapp"></i> <span>Mandar</span>
+              <div class="case-link-col">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="case-link-pill">
+                  https://instagram.com/mariana.vendas
                 </a>
               </div>
             </div>
 
-            <!-- Case 3 -->
-            <div class="case-item-row">
-              <div class="case-user-left">
-                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="Carlos" class="case-avatar">
+            <!-- Item 3 -->
+            <div class="case-row-item">
+              <div class="case-avatar-col">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=140&q=80" alt="Lucas Andrade" class="case-round-avatar">
               </div>
-              <div class="case-user-middle">
-                <div class="case-user-top">
-                  <strong class="case-name">Carlos Eduardo</strong>
-                  <span class="case-badge-pill lotep-tag">Vendas Externas</span>
-                </div>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="case-insta-link">
-                  <i class="fa-brands fa-instagram"></i> @carlos.vendas.pb
+              <div class="case-name-col">
+                <span class="case-person-name">Lucas Andrade</span>
+              </div>
+              <div class="case-link-col">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="case-link-pill">
+                  https://instagram.com/lucas.consultoria
                 </a>
-                <p class="case-story-text">
-                  "Com a calculadora e as legislações oficiais da LOTEP na mão, fechei 140 cotas em um sábado em Santa Rita!"
-                </p>
               </div>
-              <div class="case-actions-side">
-                <button class="case-action-btn btn-copy-case" onclick="copyCaseStory('carlos')" title="Copiar prova social">
-                  <i class="fa-regular fa-copy"></i> <span>Copiar</span>
-                </button>
-                <a href="https://wa.me/?text=Ol%C3%A1%2C%20veja%20como%20o%20Carlos%20bateu%20meta%20de%20140%20cotas%20com%20a%20LOTEP!" target="_blank" class="case-action-btn btn-send-case" title="Mandar no WhatsApp">
-                  <i class="fa-brands fa-whatsapp"></i> <span>Mandar</span>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="case-row-item">
+              <div class="case-avatar-col">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=140&q=80" alt="Fernanda Lima" class="case-round-avatar">
+              </div>
+              <div class="case-name-col">
+                <span class="case-person-name">Fernanda Lima</span>
+              </div>
+              <div class="case-link-col">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="case-link-pill">
+                  https://instagram.com/fernanda.lider
+                </a>
+              </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="case-row-item">
+              <div class="case-avatar-col">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=140&q=80" alt="Carlos Eduardo" class="case-round-avatar">
+              </div>
+              <div class="case-name-col">
+                <span class="case-person-name">Carlos Eduardo</span>
+              </div>
+              <div class="case-link-col">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="case-link-pill">
+                  https://instagram.com/carlos.vendas.pb
+                </a>
+              </div>
+            </div>
+
+            <!-- Item 6: Luquinhas Suporte Vendas -->
+            <div class="case-row-item">
+              <div class="case-avatar-col">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=140&q=80" alt="Luquinhas Oficial" class="case-round-avatar">
+              </div>
+              <div class="case-name-col">
+                <span class="case-person-name">Luquinhas Oficial</span>
+              </div>
+              <div class="case-link-col">
+                <a href="https://wa.me/?text=Ol%C3%A1%20Luquinhas%2C%20vim%20pelo%20Portal%20de%20Vendas!" target="_blank" rel="noopener noreferrer" class="case-link-pill link-whatsapp-pill">
+                  https://wa.me/suporte-luquinhas
                 </a>
               </div>
             </div>
 
           </div>
         </div>
-
       </div>
 
     </section>
 
   </main>
 
-  <!-- MODAL COMPLETO: MATERIAL LOTEP OU CAP (SIMULADOR / LEGISLAÇÃO / SCRIPTS / DOWNLOADS) -->
+  <!-- MODAL COMPLETO: MATERIAL LOTEP OU CAP (LEGISLAÇÃO / SCRIPTS / DOWNLOADS) -->
   <div class="modal-backdrop" id="productModal" onclick="closeProductModal(event)">
     <div class="modal-dialog" onclick="event.stopPropagation()">
       <div class="modal-header">
@@ -369,7 +306,7 @@
       <!-- Abas Internas do Modal -->
       <div class="modal-tabs">
         <button class="m-tab active" id="mTabSimulador" onclick="switchModalTab('simulador')">
-          <i class="fa-solid fa-calculator"></i> Simulador Detalhado
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Simuladores Oficiais
         </button>
         <button class="m-tab" id="mTabLegislacao" onclick="switchModalTab('legislacao')">
           <i class="fa-solid fa-scale-balanced"></i> Legislações & Portarias
@@ -384,7 +321,7 @@
 
       <div class="modal-body">
         
-        <!-- ABA 1: SIMULADOR DETALHADO -->
+        <!-- ABA 1: LINKS DOS SIMULADORES -->
         <div class="tab-pane active" id="paneSimulador">
           <div class="interactive-sim-box" id="modalSimContent">
             <!-- Preenchido dinamicamente conforme LOTEP ou CAP -->

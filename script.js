@@ -8,16 +8,13 @@ const PRODUCTS_DATA = {
     badge: "LOTEP",
     badgeClass: "lotep",
     title: "Material Oficial LOTEP (Loteria da Paraíba)",
-    simulador: {
-      title: "Simulador de Cotas & Premiações LOTEP",
-      description: "Calcule a premiação proporcional e a quantidade de bilhetes para o seu cliente.",
-      defaultTicketPrice: 5,
-      modes: [
-        { name: "Bilhete Simples (Milhar/Centena)", multiplier: 4000, desc: "R$ 1,00 concorre a até R$ 4.000,00" },
-        { name: "Cota Turbinada da Sorte", multiplier: 10000, desc: "Cota com 10 combinações + Giro Instantâneo" },
-        { name: "Bolão Especial de Fim de Semana", multiplier: 50000, desc: "Premiação máxima acumulada com rateio" }
-      ]
-    },
+    simuladorLinks: [
+      {
+        title: "Simulador LOTEP (Sanasorte)",
+        url: "https://simulador.sanasorte.com.br/",
+        desc: "Simulador oficial online para cálculo de cotas, bilhetes e premiações diárias."
+      }
+    ],
     leis: [
       {
         id: "lotep-1",
@@ -77,16 +74,18 @@ Ficou só R$ 15 por cota. Já temos 14 preenchidas e restam só 6. Vou colocar s
     badge: "CAP",
     badgeClass: "cap",
     title: "Material Oficial CAP (Títulos de Capitalização)",
-    simulador: {
-      title: "Simulador de Capitalização & Retorno CAP",
-      description: "Demonstre ao cliente como o título protege o dinheiro e ainda concorre a grandes prêmios semanais.",
-      defaultTicketPrice: 10,
-      modes: [
-        { name: "CAP Semanal Premiável", multiplier: 20000, desc: "Título com sorteios aos domingos e resgate proporcional" },
-        { name: "CAP Mensal Ouro", multiplier: 100000, desc: "Prêmio principal de R$ 100 mil + Casas e Carros" },
-        { name: "CAP Fidelidade Acumulado", multiplier: 250000, desc: "Maior percentual de resgate final + mega prêmio" }
-      ]
-    },
+    simuladorLinks: [
+      {
+        title: "Simulador Capitalização Incentivo (App Lovable)",
+        url: "https://simuladplayyourwayorcap.lovable.app/auth",
+        desc: "Acesso ao simulador web oficial de capitalização na modalidade incentivo."
+      },
+      {
+        title: "Simulador Capitalização Filantropia (Google Sheets)",
+        url: "https://docs.google.com/spreadsheets/d/162MhF_MiFt4oliIccJStU55pEJ4DRu4oMk5O9kIOAEI/edit?usp=sharing",
+        desc: "Planilha oficial homologada para cálculo de títulos na modalidade filantropia premiável."
+      }
+    ],
     leis: [
       {
         id: "cap-1",
@@ -143,286 +142,185 @@ Diferente de aposta onde o dinheiro 'some' se não ganhar, no título de capital
   }
 };
 
-// Dados detalhados dos Cases para cópia
-const CASES_PITCH = {
-  mariana: {
-    nome: "Mariana Souza (@mariana.vendas)",
-    cidade: "Campina Grande - PB",
-    premio: "R$ 5.840,00 no 1º mês",
-    produto: "LOTEP",
-    mensagem: `🌟 *CASE DE SUCESSO - Mariana Souza (@mariana.vendas)*
-📍 Campina Grande - PB • Destaque LOTEP
-💰 Faturamento: R$ 5.840,00 em comissões no 1º mês!
-
-"No começo achei que ia ser difícil, mas quando usei o script oficial e mostrei a tabela de chances oficiais da LOTEP aos clientes, fechei mais de 10 cotas por dia. A comissão cai certinha!"
-
-👉 Veja como aplicar o método no Portal Luquinhas!`
-  },
-  lucas: {
-    nome: "Lucas Andrade (@lucas.consultoria)",
-    cidade: "João Pessoa - PB",
-    premio: "Cliente premiado com R$ 35.000",
-    produto: "CAP Premiável",
-    mensagem: `🏆 *CASE DE SUCESSO - Lucas Andrade (@lucas.consultoria)*
-📍 João Pessoa - PB • Especialista CAP SUSEP
-🎉 Resultado: Cliente comtemplado com R$ 35.000,00 no sorteio de domingo!
-
-"Vendi 3 títulos CAP para o seu Raimundo da padaria. No domingo ele levou R$ 35 mil no giro da sorte! A notícia explodiu no bairro e agora vendo mais de 50 títulos por dia só por indicação."`
-  },
-  carlos: {
-    nome: "Carlos Eduardo (@carlos.vendas.pb)",
-    cidade: "Santa Rita - PB",
-    premio: "140 cotas em um sábado",
-    produto: "LOTEP",
-    mensagem: `🚀 *CASE DE SUCESSO - Carlos Eduardo (@carlos.vendas.pb)*
-📍 Santa Rita - PB • Vendas Externas
-⚡ Meta: 140 cotas vendidas em um único sábado!
-
-"Com a calculadora no celular e as legislações oficiais da LOTEP na mão, mostrei a segurança jurídica da operação para cada cliente. Fechei na hora!"`
-  }
-};
-
 let currentProduct = 'lotep';
 
 // ========================================================
-// MOTOR DA CALCULADORA DE CELULAR SMARTPHONE
+// MOTOR DA CALCULADORA TIPO CELULAR PADRÃO (EXATA DA FOTO 1)
 // ========================================================
-let calcCurrentVal = '0';
-let calcPreviousVal = '';
-let calcOperator = null;
-let calcResetOnNext = false;
+let iosCurrent = '0';
+let iosPrevious = null;
+let iosOp = null;
+let iosResetNext = false;
 
-function updateCalcDisplay() {
-  const display = document.getElementById('calcDisplay');
-  const history = document.getElementById('calcHistory');
+function updateIosDisplay() {
+  const display = document.getElementById('iosCalcDisplay');
+  const btnAC = document.getElementById('btnAC');
 
-  // Formatação com separador de milhar
-  let formatted = calcCurrentVal;
-  if (!calcCurrentVal.includes('e') && !calcCurrentVal.includes('E')) {
-    const parts = calcCurrentVal.split('.');
+  // Alternar entre AC e C
+  if (btnAC) {
+    btnAC.textContent = (iosCurrent !== '0' || iosPrevious !== null) ? 'C' : 'AC';
+  }
+
+  // Formatação com separadores de milhares e vírgula
+  let formatted = iosCurrent;
+  if (!iosCurrent.includes('e') && !iosCurrent.includes('E')) {
+    const parts = iosCurrent.split('.');
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     formatted = parts.join(',');
   }
 
-  // Ajuste do tamanho da fonte se o número for muito longo
+  // Redução automática da fonte conforme quantidade de dígitos
   if (formatted.length > 9) {
-    display.style.fontSize = '2rem';
-  } else if (formatted.length > 7) {
     display.style.fontSize = '2.4rem';
+  } else if (formatted.length > 7) {
+    display.style.fontSize = '3.1rem';
+  } else if (formatted.length > 5) {
+    display.style.fontSize = '3.6rem';
   } else {
-    display.style.fontSize = '2.8rem';
+    display.style.fontSize = '4.2rem';
   }
 
   display.textContent = formatted;
-
-  if (calcOperator && calcPreviousVal !== '') {
-    let opSymbol = calcOperator;
-    if (opSymbol === '*') opSymbol = '×';
-    if (opSymbol === '/') opSymbol = '÷';
-    if (opSymbol === '-') opSymbol = '−';
-    history.textContent = `${calcPreviousVal.replace('.', ',')} ${opSymbol}`;
-  } else {
-    history.innerHTML = '&nbsp;';
-  }
 }
 
-function calcInput(key) {
+function iosCalcInput(key) {
   // Números
   if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(key)) {
-    if (calcCurrentVal === '0' || calcResetOnNext) {
-      calcCurrentVal = key;
-      calcResetOnNext = false;
+    if (iosCurrent === '0' || iosResetNext) {
+      iosCurrent = key;
+      iosResetNext = false;
     } else {
-      if (calcCurrentVal.length < 12) {
-        calcCurrentVal += key;
+      if (iosCurrent.length < 10) {
+        iosCurrent += key;
       }
     }
-    updateCalcDisplay();
+    updateIosDisplay();
     return;
   }
 
-  // Ponto / Vírgula decimal
+  // Ponto decimal / Vírgula
   if (key === '.') {
-    if (calcResetOnNext) {
-      calcCurrentVal = '0.';
-      calcResetOnNext = false;
-    } else if (!calcCurrentVal.includes('.')) {
-      calcCurrentVal += '.';
+    if (iosResetNext) {
+      iosCurrent = '0.';
+      iosResetNext = false;
+    } else if (!iosCurrent.includes('.')) {
+      iosCurrent += '.';
     }
-    updateCalcDisplay();
+    updateIosDisplay();
     return;
   }
 
-  // Limpar (AC)
+  // AC / C
   if (key === 'AC') {
-    calcCurrentVal = '0';
-    calcPreviousVal = '';
-    calcOperator = null;
-    calcResetOnNext = false;
-    updateCalcDisplay();
+    iosCurrent = '0';
+    iosPrevious = null;
+    iosOp = null;
+    iosResetNext = false;
+    updateIosDisplay();
     return;
   }
 
-  // Apagar último dígito (DEL)
-  if (key === 'DEL') {
-    if (calcResetOnNext) return;
-    if (calcCurrentVal.length > 1) {
-      calcCurrentVal = calcCurrentVal.slice(0, -1);
-    } else {
-      calcCurrentVal = '0';
-    }
-    updateCalcDisplay();
-    return;
-  }
-
-  // Inversão de sinal (+/-)
+  // Inversão (+/-)
   if (key === '+/-') {
-    if (calcCurrentVal !== '0') {
-      if (calcCurrentVal.startsWith('-')) {
-        calcCurrentVal = calcCurrentVal.substring(1);
+    if (iosCurrent !== '0') {
+      if (iosCurrent.startsWith('-')) {
+        iosCurrent = iosCurrent.substring(1);
       } else {
-        calcCurrentVal = '-' + calcCurrentVal;
+        iosCurrent = '-' + iosCurrent;
       }
-      updateCalcDisplay();
+      updateIosDisplay();
     }
     return;
   }
 
   // Porcentagem (%)
   if (key === '%') {
-    const val = parseFloat(calcCurrentVal);
+    const val = parseFloat(iosCurrent);
     if (!isNaN(val)) {
-      calcCurrentVal = String(val / 100);
-      updateCalcDisplay();
+      iosCurrent = String(val / 100);
+      updateIosDisplay();
     }
     return;
   }
 
-  // Operadores aritméticos (+, -, *, /)
+  // Operadores (+, -, *, /)
   if (['+', '-', '*', '/'].includes(key)) {
-    if (calcOperator && !calcResetOnNext) {
-      executeCalcOperation();
+    if (iosOp && !iosResetNext) {
+      executeIosOp();
     }
-    calcPreviousVal = calcCurrentVal;
-    calcOperator = key;
-    calcResetOnNext = true;
-    updateCalcDisplay();
+    iosPrevious = iosCurrent;
+    iosOp = key;
+    iosResetNext = true;
+    updateIosDisplay();
     return;
   }
 
   // Igual (=)
   if (key === '=') {
-    if (calcOperator && calcPreviousVal !== '') {
-      executeCalcOperation();
-      calcOperator = null;
-      calcResetOnNext = true;
+    if (iosOp && iosPrevious !== null) {
+      executeIosOp();
+      iosOp = null;
+      iosResetNext = true;
     }
-    updateCalcDisplay();
+    updateIosDisplay();
     return;
   }
 }
 
-function executeCalcOperation() {
-  const prev = parseFloat(calcPreviousVal);
-  const current = parseFloat(calcCurrentVal);
+function executeIosOp() {
+  const prev = parseFloat(iosPrevious);
+  const current = parseFloat(iosCurrent);
   if (isNaN(prev) || isNaN(current)) return;
 
-  let result = 0;
-  switch (calcOperator) {
-    case '+': result = prev + current; break;
-    case '-': result = prev - current; break;
-    case '*': result = prev * current; break;
+  let res = 0;
+  switch (iosOp) {
+    case '+': res = prev + current; break;
+    case '-': res = prev - current; break;
+    case '*': res = prev * current; break;
     case '/': 
       if (current === 0) {
-        showToast("Não é possível dividir por zero!");
+        showToast("Erro: divisão por zero");
+        iosCurrent = '0';
+        iosPrevious = null;
+        iosOp = null;
         return;
       }
-      result = prev / current; 
+      res = prev / current; 
       break;
     default: return;
   }
 
-  // Truncar casas decimais excessivas
-  result = Math.round(result * 100000000) / 100000000;
-  calcCurrentVal = String(result);
-  calcPreviousVal = '';
+  res = Math.round(res * 100000000) / 100000000;
+  iosCurrent = String(res);
+  iosPrevious = null;
 }
 
-// Atalhos Rápidos de Venda no Celular
-function calcQuickSales(valorBilhete) {
-  calcInput('AC');
-  calcCurrentVal = String(valorBilhete);
-  calcInput('*');
-  showToast(`Multiplicando por R$ ${valorBilhete},00. Digite a quantidade de bilhetes e aperte '='`);
-}
-
-function calcQuickPercent(pct) {
-  const val = parseFloat(calcCurrentVal);
-  if (isNaN(val) || val === 0) {
-    showToast("Digite o valor das vendas primeiro!");
-    return;
-  }
-  const comissao = val * (pct / 100);
-  calcPreviousVal = `${val} × ${pct}%`;
-  calcCurrentVal = String(Math.round(comissao * 100) / 100);
-  calcResetOnNext = true;
-  updateCalcDisplay();
-  showToast(`Comissão de ${pct}% calculada: R$ ${calcCurrentVal.replace('.', ',')}`);
-}
-
-function copyCalcResult() {
-  const displayVal = document.getElementById('calcDisplay').textContent;
-  copyToClipboard(`R$ ${displayVal}`, `Resultado R$ ${displayVal} copiado!`);
-}
-
-// Captura de teclas físicas do teclado
+// Suporte ao teclado físico do computador
 document.addEventListener('keydown', (e) => {
   if (document.activeElement.tagName === 'INPUT') return;
 
   if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(e.key)) {
-    calcInput(e.key);
+    iosCalcInput(e.key);
   } else if (e.key === '.' || e.key === ',') {
-    calcInput('.');
+    iosCalcInput('.');
   } else if (['+', '-', '*', '/'].includes(e.key)) {
-    calcInput(e.key);
+    iosCalcInput(e.key);
   } else if (e.key === 'Enter' || e.key === '=') {
     e.preventDefault();
-    calcInput('=');
+    iosCalcInput('=');
   } else if (e.key === 'Backspace') {
-    calcInput('DEL');
+    if (iosCurrent.length > 1) {
+      iosCurrent = iosCurrent.slice(0, -1);
+    } else {
+      iosCurrent = '0';
+    }
+    updateIosDisplay();
   } else if (e.key === 'Escape') {
-    calcInput('AC');
+    iosCalcInput('AC');
   } else if (e.key === '%') {
-    calcInput('%');
+    iosCalcInput('%');
   }
 });
-
-// Relógio no topo do celular
-function updatePhoneClock() {
-  const clock = document.getElementById('liveClock');
-  if (!clock) return;
-  const now = new Date();
-  const h = String(now.getHours()).padStart(2, '0');
-  const m = String(now.getMinutes()).padStart(2, '0');
-  clock.textContent = `${h}:${m}`;
-}
-
-// ========================================================
-// CASES DE SUCESSO & LINKS DE AÇÕES
-// ========================================================
-function copyCaseStory(caseKey) {
-  const c = CASES_PITCH[caseKey];
-  if (!c) return;
-  copyToClipboard(c.mensagem, `Prova social de ${c.nome.split(' ')[0]} copiada!`);
-}
-
-function openSiteVendas() {
-  alert("Link do Portal Oficial de Emissão de Vendas configurável pelo gestor.");
-}
-
-function openDriveArtes() {
-  alert("Pasta Google Drive com criativos para Stories, artes prontas e panfletos digitais.");
-}
 
 // ========================================================
 // MODAL DE PRODUTO (LOTEP & CAP)
@@ -432,19 +330,17 @@ function openProductModal(product) {
   const data = PRODUCTS_DATA[product];
   const modal = document.getElementById('productModal');
 
-  // Badge e Titulo
   const badgeEl = document.getElementById('modalProductBadge');
   badgeEl.textContent = data.badge;
   badgeEl.className = `modal-badge ${data.badgeClass}`;
   document.getElementById('modalProductTitle').textContent = data.title;
 
-  // Carregar Conteúdo das Abas
-  renderModalSimulador(data);
+  // Carregar Conteúdo
+  renderModalSimuladores(data.simuladorLinks);
   renderModalLaws(data.leis);
   renderModalScripts(data.scripts);
   renderModalDownloads(data.downloads);
 
-  // Abrir modal na aba 1
   switchModalTab('simulador');
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -477,39 +373,32 @@ function switchModalTab(tabName) {
   });
 }
 
-function renderModalSimulador(data) {
+function renderModalSimuladores(links) {
   const container = document.getElementById('modalSimContent');
-  const sim = data.simulador;
-
   let html = `
     <div style="margin-bottom: 20px;">
-      <h3 style="font-size: 1.15rem; color: #fff; margin-bottom: 4px;">${sim.title}</h3>
-      <p style="font-size: 0.88rem; color: #94a3b8;">${sim.description}</p>
+      <h3 style="font-size: 1.15rem; color: #fff; margin-bottom: 4px;">Simuladores Homologados & Oficiais</h3>
+      <p style="font-size: 0.88rem; color: #94a3b8;">Acesse os links oficiais para cálculo de cotas, títulos e premiações em tempo real.</p>
     </div>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 24px;">
+    <div style="display: flex; flex-direction: column; gap: 14px;">
   `;
 
-  sim.modes.forEach((m) => {
+  links.forEach(l => {
     html += `
-      <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 16px;">
-        <div style="font-weight: 700; color: #fff; font-size: 0.95rem; margin-bottom: 6px;">${m.name}</div>
-        <div style="font-size: 0.82rem; color: #94a3b8; margin-bottom: 12px;">${m.desc}</div>
-        <div style="font-size: 1.2rem; font-weight: 800; color: #f59e0b;">Multiplicador ${m.multiplier}x</div>
+      <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 18px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+        <div>
+          <div style="font-weight: 700; color: #fff; font-size: 1rem; margin-bottom: 4px;">${l.title}</div>
+          <div style="font-size: 0.84rem; color: #94a3b8;">${l.desc}</div>
+        </div>
+        <a href="${l.url}" target="_blank" rel="noopener noreferrer" style="background: #0284c7; color: #fff; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-size: 0.86rem; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
+          <span>Abrir Simulador</span>
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
       </div>
     `;
   });
 
-  html += `
-    </div>
-    <div style="background: #0b0f19; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px;">
-      <div style="font-weight: 700; color: #fff; margin-bottom: 8px;">Dica de Fechamento ao vivo para este produto:</div>
-      <p style="font-size: 0.86rem; color: #cbd5e1; line-height: 1.5;">
-        Sempre apresente 3 opções de cotas para o seu cliente (ex: R$ 10, R$ 25 e R$ 50). Quando você dá alternativas fechadas, o cérebro escolhe a opção intermediária em mais de 70% dos casos!
-      </p>
-    </div>
-  `;
-
+  html += `</div>`;
   container.innerHTML = html;
 }
 
@@ -549,9 +438,7 @@ function renderModalLaws(leis) {
 
 function toggleLawAccordion(id) {
   const el = document.getElementById(id);
-  if (el) {
-    el.classList.toggle('open');
-  }
+  if (el) el.classList.toggle('open');
 }
 
 function filterLaws(query) {
@@ -683,9 +570,7 @@ function escapeQuotes(string) {
   return String(string).replace(/'/g, "\\'").replace(/"/g, '\\"');
 }
 
-// Inicializar Relógio e Display
+// Inicializar
 document.addEventListener('DOMContentLoaded', () => {
-  updatePhoneClock();
-  setInterval(updatePhoneClock, 10000);
-  updateCalcDisplay();
+  updateIosDisplay();
 });
