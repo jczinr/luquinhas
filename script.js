@@ -156,12 +156,10 @@ function updateIosDisplay() {
   const display = document.getElementById('iosCalcDisplay');
   const btnAC = document.getElementById('btnAC');
 
-  // Alternar entre AC e C
   if (btnAC) {
     btnAC.textContent = (iosCurrent !== '0' || iosPrevious !== null) ? 'C' : 'AC';
   }
 
-  // Formatação com separadores de milhares e vírgula
   let formatted = iosCurrent;
   if (!iosCurrent.includes('e') && !iosCurrent.includes('E')) {
     const parts = iosCurrent.split('.');
@@ -169,22 +167,20 @@ function updateIosDisplay() {
     formatted = parts.join(',');
   }
 
-  // Redução automática da fonte conforme quantidade de dígitos
   if (formatted.length > 9) {
-    display.style.fontSize = '2.4rem';
+    display.style.fontSize = '1.8rem';
   } else if (formatted.length > 7) {
-    display.style.fontSize = '3.1rem';
+    display.style.fontSize = '2.2rem';
   } else if (formatted.length > 5) {
-    display.style.fontSize = '3.6rem';
+    display.style.fontSize = '2.5rem';
   } else {
-    display.style.fontSize = '4.2rem';
+    display.style.fontSize = '2.6rem';
   }
 
   display.textContent = formatted;
 }
 
 function iosCalcInput(key) {
-  // Números
   if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(key)) {
     if (iosCurrent === '0' || iosResetNext) {
       iosCurrent = key;
@@ -198,7 +194,6 @@ function iosCalcInput(key) {
     return;
   }
 
-  // Ponto decimal / Vírgula
   if (key === '.') {
     if (iosResetNext) {
       iosCurrent = '0.';
@@ -210,7 +205,6 @@ function iosCalcInput(key) {
     return;
   }
 
-  // AC / C
   if (key === 'AC') {
     iosCurrent = '0';
     iosPrevious = null;
@@ -220,7 +214,6 @@ function iosCalcInput(key) {
     return;
   }
 
-  // Inversão (+/-)
   if (key === '+/-') {
     if (iosCurrent !== '0') {
       if (iosCurrent.startsWith('-')) {
@@ -233,7 +226,6 @@ function iosCalcInput(key) {
     return;
   }
 
-  // Porcentagem (%)
   if (key === '%') {
     const val = parseFloat(iosCurrent);
     if (!isNaN(val)) {
@@ -243,7 +235,6 @@ function iosCalcInput(key) {
     return;
   }
 
-  // Operadores (+, -, *, /)
   if (['+', '-', '*', '/'].includes(key)) {
     if (iosOp && !iosResetNext) {
       executeIosOp();
@@ -255,7 +246,6 @@ function iosCalcInput(key) {
     return;
   }
 
-  // Igual (=)
   if (key === '=') {
     if (iosOp && iosPrevious !== null) {
       executeIosOp();
@@ -295,9 +285,9 @@ function executeIosOp() {
   iosPrevious = null;
 }
 
-// Suporte ao teclado físico do computador
+// Suporte ao teclado físico
 document.addEventListener('keydown', (e) => {
-  if (document.activeElement.tagName === 'INPUT') return;
+  if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
 
   if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(e.key)) {
     iosCalcInput(e.key);
@@ -323,6 +313,173 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ========================================================
+// MODAL DE APRESENTAÇÃO PDF
+// ========================================================
+function openApresentacaoPdf() {
+  const modal = document.getElementById('apresentacaoModal');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeApresentacaoModal(event) {
+  if (event.target === document.getElementById('apresentacaoModal')) {
+    closeApresentacaoModalDirect();
+  }
+}
+
+function closeApresentacaoModalDirect() {
+  const modal = document.getElementById('apresentacaoModal');
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ========================================================
+// BLOCO DE NOTAS (COM AUTO-SAVE EM LOCALSTORAGE)
+// ========================================================
+let notepadSaveTimeout = null;
+
+function saveNotepad() {
+  const text = document.getElementById('salesNotepad').value;
+  localStorage.setItem('luquinhas_sales_notes', text);
+
+  const status = document.getElementById('notepadStatus');
+  status.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Salvando...`;
+
+  if (notepadSaveTimeout) clearTimeout(notepadSaveTimeout);
+  notepadSaveTimeout = setTimeout(() => {
+    status.innerHTML = `<i class="fa-solid fa-check"></i> Salvo automaticamente`;
+  }, 400);
+}
+
+function loadNotepad() {
+  const saved = localStorage.getItem('luquinhas_sales_notes');
+  const notepad = document.getElementById('salesNotepad');
+  if (saved !== null && notepad) {
+    notepad.value = saved;
+  }
+}
+
+function copyNotepadText() {
+  const text = document.getElementById('salesNotepad').value;
+  if (!text.trim()) {
+    showToast("O bloco de notas está vazio!");
+    return;
+  }
+  copyToClipboard(text, "Anotações copiadas para a área de transferência!");
+}
+
+function clearNotepadText() {
+  if (confirm("Deseja realmente limpar todas as anotações?")) {
+    document.getElementById('salesNotepad').value = '';
+    localStorage.removeItem('luquinhas_sales_notes');
+    showToast("Bloco de notas limpo!");
+  }
+}
+
+// ========================================================
+// AGENDA PARA MARCAR EVENTOS (COM PERSISTÊNCIA)
+// ========================================================
+let calendarEvents = [];
+
+function loadCalendarEvents() {
+  const saved = localStorage.getItem('luquinhas_events_list');
+  if (saved) {
+    try {
+      calendarEvents = JSON.parse(saved);
+    } catch (e) {
+      calendarEvents = [];
+    }
+  } else {
+    // Eventos padrão de demonstração
+    calendarEvents = [
+      { id: 1, title: "Sorteio Semanal CAP às 10h", datetime: "2026-11-22T10:00" },
+      { id: 2, title: "Ligar p/ Cliente Bolão LOTEP", datetime: "2026-11-18T15:30" }
+    ];
+    saveCalendarEvents();
+  }
+  renderCalendarEvents();
+}
+
+function saveCalendarEvents() {
+  localStorage.setItem('luquinhas_events_list', JSON.stringify(calendarEvents));
+  renderCalendarEvents();
+}
+
+function renderCalendarEvents() {
+  const list = document.getElementById('eventsList');
+  const countBadge = document.getElementById('eventsCount');
+  if (!list) return;
+
+  if (countBadge) {
+    countBadge.textContent = `${calendarEvents.length} evento${calendarEvents.length === 1 ? '' : 's'}`;
+  }
+
+  if (calendarEvents.length === 0) {
+    list.innerHTML = `<div style="text-align: center; color: #64748b; font-size: 0.72rem; padding: 12px 0;">Nenhum evento marcado. Adicione um acima!</div>`;
+    return;
+  }
+
+  // Ordenar por data crescente
+  calendarEvents.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
+
+  let html = '';
+  calendarEvents.forEach(ev => {
+    let formattedDate = 'Data a definir';
+    if (ev.datetime) {
+      const d = new Date(ev.datetime);
+      if (!isNaN(d.getTime())) {
+        formattedDate = d.toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+      }
+    }
+
+    html += `
+      <div class="event-item-card">
+        <div class="event-item-info">
+          <span class="event-item-title" title="${escapeHtml(ev.title)}">${escapeHtml(ev.title)}</span>
+          <span class="event-item-time"><i class="fa-regular fa-clock"></i> ${formattedDate}</span>
+        </div>
+        <button class="btn-del-event" onclick="deleteCalendarEvent(${ev.id})" title="Remover evento">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    `;
+  });
+
+  list.innerHTML = html;
+}
+
+function addCalendarEvent() {
+  const titleInput = document.getElementById('eventTitleInput');
+  const dateInput = document.getElementById('eventDateInput');
+  const title = titleInput.value.trim();
+  const datetime = dateInput.value;
+
+  if (!title) {
+    showToast("Digite o título do evento!");
+    return;
+  }
+
+  const newEvent = {
+    id: Date.now(),
+    title: title,
+    datetime: datetime || new Date().toISOString().slice(0, 16)
+  };
+
+  calendarEvents.push(newEvent);
+  saveCalendarEvents();
+
+  titleInput.value = '';
+  dateInput.value = '';
+  showToast("Evento marcado na agenda com sucesso!");
+}
+
+function deleteCalendarEvent(id) {
+  calendarEvents = calendarEvents.filter(e => e.id !== id);
+  saveCalendarEvents();
+  showToast("Evento removido da agenda!");
+}
+
+// ========================================================
 // MODAL DE PRODUTO (LOTEP & CAP)
 // ========================================================
 function openProductModal(product) {
@@ -335,7 +492,6 @@ function openProductModal(product) {
   badgeEl.className = `modal-badge ${data.badgeClass}`;
   document.getElementById('modalProductTitle').textContent = data.title;
 
-  // Carregar Conteúdo
   renderModalSimuladores(data.simuladorLinks);
   renderModalLaws(data.leis);
   renderModalScripts(data.scripts);
@@ -570,7 +726,9 @@ function escapeQuotes(string) {
   return String(string).replace(/'/g, "\\'").replace(/"/g, '\\"');
 }
 
-// Inicializar
+// Inicializar na carga da página
 document.addEventListener('DOMContentLoaded', () => {
   updateIosDisplay();
+  loadNotepad();
+  loadCalendarEvents();
 });

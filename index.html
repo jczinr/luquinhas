@@ -18,14 +18,15 @@
 
   <main class="container main-content">
 
-    <!-- SEÇÃO TOPO: 2 CARDS PRINCIPAIS (LOTEP & CAP) -->
+    <!-- SEÇÃO TOPO: LOTEP, CAP E APRESENTAÇÃO (À DIREITA DE CAP) -->
     <section class="hub-selection-section">
       <div class="hub-cards-grid">
-        <!-- CARD LOTEP -->
+        
+        <!-- CARD 1: LOTEP -->
         <div class="hub-card hub-lotep" id="cardLotep">
           <div class="card-badge-top">
             <span class="badge-tag lotep-tag"><i class="fa-solid fa-ticket"></i> Loteria Estadual</span>
-            <span class="badge-verified"><i class="fa-solid fa-circle-check"></i> Oficial Regulamentado</span>
+            <span class="badge-verified"><i class="fa-solid fa-circle-check"></i> Regulamentado</span>
           </div>
 
           <div class="card-icon-title">
@@ -34,19 +35,19 @@
             </div>
             <div>
               <h3 class="hub-title">LOTEP</h3>
-              <p class="hub-subtitle">Loteria do Estado da Paraíba</p>
+              <p class="hub-subtitle">Loteria da Paraíba</p>
             </div>
           </div>
 
           <p class="hub-desc">
-            Simulador oficial Sanasorte, portarias estaduais e scripts de fechamento validados.
+            Simulador Sanasorte, portarias e scripts de fechamento.
           </p>
 
           <div class="hub-links-cluster">
             <a href="https://simulador.sanasorte.com.br/" target="_blank" rel="noopener noreferrer" class="simulator-direct-btn lotep-sim-btn">
               <div class="sim-btn-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
               <div class="sim-btn-text">
-                <strong>Simulador LOTEP (Sanasorte)</strong>
+                <strong>Simulador LOTEP</strong>
                 <span>simulador.sanasorte.com.br</span>
               </div>
             </a>
@@ -60,11 +61,11 @@
           </div>
         </div>
 
-        <!-- CARD CAP -->
+        <!-- CARD 2: CAP -->
         <div class="hub-card hub-cap" id="cardCap">
           <div class="card-badge-top">
-            <span class="badge-tag cap-tag"><i class="fa-solid fa-shield-halved"></i> Capitalização SUSEP</span>
-            <span class="badge-verified"><i class="fa-solid fa-trophy"></i> Sorteios Oficiais</span>
+            <span class="badge-tag cap-tag"><i class="fa-solid fa-shield-halved"></i> SUSEP</span>
+            <span class="badge-verified"><i class="fa-solid fa-trophy"></i> Sorteios</span>
           </div>
 
           <div class="card-icon-title">
@@ -73,19 +74,19 @@
             </div>
             <div>
               <h3 class="hub-title">CAP</h3>
-              <p class="hub-subtitle">Títulos de Capitalização Premiáveis</p>
+              <p class="hub-subtitle">Capitalização Premiável</p>
             </div>
           </div>
 
           <p class="hub-desc">
-            Simuladores oficiais de Incentivo e Filantropia, normativas SUSEP e comparativos.
+            Simuladores de Incentivo, Filantropia e normativas.
           </p>
 
           <div class="hub-links-cluster cluster-cap">
             <a href="https://simuladplayyourwayorcap.lovable.app/auth" target="_blank" rel="noopener noreferrer" class="simulator-direct-btn cap-sim-btn">
               <div class="sim-btn-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
               <div class="sim-btn-text">
-                <strong>Simulador CAP - Incentivo</strong>
+                <strong>Simulador CAP Incentivo</strong>
                 <span>simuladplayyourwayorcap.lovable.app</span>
               </div>
             </a>
@@ -93,8 +94,8 @@
             <a href="https://docs.google.com/spreadsheets/d/162MhF_MiFt4oliIccJStU55pEJ4DRu4oMk5O9kIOAEI/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="simulator-direct-btn sheet-sim-btn">
               <div class="sim-btn-icon"><i class="fa-solid fa-file-excel"></i></div>
               <div class="sim-btn-text">
-                <strong>Simulador CAP - Filantropia</strong>
-                <span>Planilha Oficial Google Sheets</span>
+                <strong>Simulador CAP Filantropia</strong>
+                <span>Planilha Google Sheets</span>
               </div>
             </a>
           </div>
@@ -102,17 +103,57 @@
           <div class="hub-footer-buttons">
             <button class="hub-action-btn btn-cap" onclick="openProductModal('cap')">
               <i class="fa-solid fa-scale-balanced"></i>
-              <span>Legislações SUSEP & Scripts CAP</span>
+              <span>Legislações SUSEP & Scripts</span>
             </button>
           </div>
         </div>
+
+        <!-- CARD 3: APRESENTAÇÃO (À DIREITA DE CAP) -->
+        <div class="hub-card hub-apresentacao" id="cardApresentacao">
+          <div class="card-badge-top">
+            <span class="badge-tag apres-tag"><i class="fa-solid fa-file-pdf"></i> Material Comercial</span>
+            <span class="badge-verified"><i class="fa-solid fa-eye"></i> Visualizar</span>
+          </div>
+
+          <div class="card-icon-title">
+            <div class="hub-big-icon apres-icon">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <div>
+              <h3 class="hub-title">Apresentação</h3>
+              <p class="hub-subtitle">Proposta & Slides em PDF</p>
+            </div>
+          </div>
+
+          <p class="hub-desc">
+            Apresentação comercial e institucional completa pronta para exibir ao cliente.
+          </p>
+
+          <div class="hub-links-cluster">
+            <div class="apres-preview-box">
+              <i class="fa-solid fa-file-pdf apres-big-pdf-icon"></i>
+              <div class="apres-preview-text">
+                <strong>Apresentação Comercial.pdf</strong>
+                <span>Clique abaixo para abrir o documento</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hub-footer-buttons">
+            <button class="hub-action-btn btn-apresentacao" onclick="openApresentacaoPdf()">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              <span>Abrir Apresentação (PDF)</span>
+            </button>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- SEÇÃO INFERIOR: CALCULADORA (ESQUERDA) + CASES E LINKS (DIREITA) -->
+    <!-- SEÇÃO INFERIOR: CALCULADORA (ESQ) + CASES (CENTRO) + BLOCO DE NOTAS & AGENDA (DIR) -->
     <section class="bottom-tools-grid" id="area-calculadora">
 
-      <!-- COLUNA DA ESQUERDA: CALCULADORA -->
+      <!-- COLUNA 1: CALCULADORA -->
       <div class="calc-phone-column">
         <div class="calc-theme-card">
           <!-- Display da Calculadora -->
@@ -154,7 +195,7 @@
         </div>
       </div>
 
-      <!-- COLUNA DA DIREITA: CASES & LINKS -->
+      <!-- COLUNA 2: CASES & LINKS -->
       <div class="cases-reference-column">
         <div class="cases-panel-card">
           <div class="cases-panel-header">
@@ -263,9 +304,86 @@
         </div>
       </div>
 
+      <!-- COLUNA 3: BLOCO DE NOTAS & AGENDA DE EVENTOS (EMBAIXO DA APRESENTAÇÃO) -->
+      <div class="notes-calendar-column">
+        
+        <!-- PARTE 1: BLOCO DE NOTAS -->
+        <div class="widget-card notepad-widget">
+          <div class="widget-header">
+            <div class="widget-title-wrap">
+              <i class="fa-solid fa-pen-to-square widget-icon"></i>
+              <h4>Bloco de Notas</h4>
+            </div>
+            <div class="widget-actions">
+              <button class="w-action-btn" onclick="copyNotepadText()" title="Copiar Anotações"><i class="fa-regular fa-copy"></i></button>
+              <button class="w-action-btn" onclick="clearNotepadText()" title="Limpar Bloco de Notas"><i class="fa-regular fa-trash-can"></i></button>
+            </div>
+          </div>
+          <div class="notepad-body">
+            <textarea id="salesNotepad" placeholder="Faça anotações rápidas de vendas, nomes de clientes, telefones ou metas..." oninput="saveNotepad()"></textarea>
+          </div>
+          <div class="notepad-status-bar">
+            <span id="notepadStatus"><i class="fa-solid fa-check"></i> Salvo automaticamente</span>
+          </div>
+        </div>
+
+        <!-- PARTE 2: AGENDA PARA MARCAR EVENTOS -->
+        <div class="widget-card calendar-widget">
+          <div class="widget-header">
+            <div class="widget-title-wrap">
+              <i class="fa-regular fa-calendar-check widget-icon calendar-icon"></i>
+              <h4>Agenda de Eventos</h4>
+            </div>
+            <span class="badge-events-count" id="eventsCount">2 eventos</span>
+          </div>
+
+          <!-- Formulário Rápido de Adicionar Evento -->
+          <div class="event-add-form">
+            <input type="text" id="eventTitleInput" placeholder="Título (ex: Sorteio LOTEP, Ligar p/ João)...">
+            <div class="event-form-row">
+              <input type="datetime-local" id="eventDateInput">
+              <button class="btn-add-event" onclick="addCalendarEvent()"><i class="fa-solid fa-plus"></i> Adicionar</button>
+            </div>
+          </div>
+
+          <!-- Lista de Eventos Marcados -->
+          <div class="events-scroll-list" id="eventsList">
+            <!-- Eventos renderizados via JavaScript -->
+          </div>
+        </div>
+
+      </div>
+
     </section>
 
   </main>
+
+  <!-- MODAL DE APRESENTAÇÃO PDF -->
+  <div class="modal-backdrop" id="apresentacaoModal" onclick="closeApresentacaoModal(event)">
+    <div class="modal-dialog modal-pdf-dialog" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-badge apres-modal-badge">PDF COMERCIAL</span>
+          <h2>Apresentação Comercial & Institucional</h2>
+        </div>
+        <div class="pdf-modal-actions">
+          <a href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" target="_blank" rel="noopener noreferrer" class="btn-pdf-external" title="Abrir em Nova Aba">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Abrir em Nova Aba
+          </a>
+          <button class="modal-close-btn" onclick="closeApresentacaoModalDirect()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="modal-body pdf-modal-body">
+        <div class="pdf-viewer-container">
+          <iframe id="pdfFrame" src="https://docs.google.com/gview?embedded=true&url=https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" class="pdf-iframe"></iframe>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class="footer-note"><i class="fa-solid fa-shield"></i> Apresentação oficial revisada para atendimento e propostas.</span>
+        <button class="btn-modal-close" onclick="closeApresentacaoModalDirect()">Fechar Visualizador</button>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL COMPLETO: MATERIAL LOTEP OU CAP (LEGISLAÇÃO / SCRIPTS / DOWNLOADS) -->
   <div class="modal-backdrop" id="productModal" onclick="closeProductModal(event)">
