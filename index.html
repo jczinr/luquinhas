@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Apoio a Vendas | Luquinhas - LOTEP & CAP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <!-- Background Glows -->
+  <div class="bg-glow glow-blue"></div>
+  <div class="bg-glow glow-emerald"></div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container header-container">
+      <div class="brand">
+        <div class="brand-badge">PORTAL DO VENDEDOR</div>
+        <h1 class="brand-title">Vendas Suporte <span class="highlight">Luquinhas</span></h1>
+        <p class="brand-subtitle">Central de Materiais de Apoio, Simuladores, Legislações & Estratégias</p>
+      </div>
+      <div class="header-actions">
+        <div class="badge-status">
+          <span class="pulse-dot"></span>
+          Legislações & Tabela 2026 Ativas
+        </div>
+        <a href="#calculadora" class="btn-quick-calc">
+          <i class="fa-solid fa-calculator"></i>
+          <span>Ir para Calculadora</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-content">
+
+    <!-- SEÇÃO PRINCIPAL TOPO: 2 BOTÕES GIGANTES (LOTEP & CAP) -->
+    <section class="hub-selection-section">
+      <div class="section-title-wrap">
+        <span class="section-tag">MATERIAIS E SIMULADORES EXCLUSIVOS</span>
+        <h2>Selecione o Produto para Acessar os Recursos</h2>
+        <p>Acesse simuladores interativos, base legislativa oficial, scripts prontos e argumentos de venda.</p>
+      </div>
+
+      <div class="hub-cards-grid">
+        <!-- CARD LOTEP -->
+        <div class="hub-card hub-lotep" id="cardLotep" onclick="openProductModal('lotep')">
+          <div class="card-glow"></div>
+          <div class="card-badge-top">
+            <span class="badge-tag lotep-tag"><i class="fa-solid fa-ticket"></i> Loteria Estadual</span>
+            <span class="badge-verified"><i class="fa-solid fa-circle-check"></i> Oficial Regulamentado</span>
+          </div>
+
+          <div class="card-icon-title">
+            <div class="hub-big-icon lotep-icon">
+              <i class="fa-solid fa-clover"></i>
+            </div>
+            <div>
+              <h3 class="hub-title">LOTEP</h3>
+              <p class="hub-subtitle">Loteria do Estado da Paraíba</p>
+            </div>
+          </div>
+
+          <p class="hub-desc">
+            Simulador de bilhetes e combinações, prêmios diários, portarias estaduais vigentes e scripts de abordagem comprovados para WhatsApp e balcão.
+          </p>
+
+          <div class="hub-features">
+            <div class="feature-item"><i class="fa-solid fa-check"></i> Simulador de Bilhetes & Cotas</div>
+            <div class="feature-item"><i class="fa-solid fa-check"></i> Decretos & Leis Vigentes</div>
+            <div class="feature-item"><i class="fa-solid fa-check"></i> Scripts para Fechamento Rápido</div>
+          </div>
+
+          <div class="hub-action-btn btn-lotep">
+            <span>Acessar Material LOTEP</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+
+        <!-- CARD CAP -->
+        <div class="hub-card hub-cap" id="cardCap" onclick="openProductModal('cap')">
+          <div class="card-glow"></div>
+          <div class="card-badge-top">
+            <span class="badge-tag cap-tag"><i class="fa-solid fa-shield-halved"></i> Capitalização SUSEP</span>
+            <span class="badge-verified"><i class="fa-solid fa-trophy"></i> Sorteios Semanais</span>
+          </div>
+
+          <div class="card-icon-title">
+            <div class="hub-big-icon cap-icon">
+              <i class="fa-solid fa-coins"></i>
+            </div>
+            <div>
+              <h3 class="hub-title">CAP</h3>
+              <p class="hub-subtitle">Títulos de Capitalização Premiáveis</p>
+            </div>
+          </div>
+
+          <p class="hub-desc">
+            Simulador de retorno e chances de sorteio, normativas SUSEP, comparativo rentável frente à poupança e roteiros para contornar objeções de clientes.
+          </p>
+
+          <div class="hub-features">
+            <div class="feature-item"><i class="fa-solid fa-check"></i> Simulador de Chances & Premiações</div>
+            <div class="feature-item"><i class="fa-solid fa-check"></i> Regulamentação Oficial SUSEP</div>
+            <div class="feature-item"><i class="fa-solid fa-check"></i> Comparativo Venda Convincente</div>
+          </div>
+
+          <div class="hub-action-btn btn-cap">
+            <span>Acessar Material CAP</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO DE BAIXO: CALCULADORA (ESQUERDA) + LINKS E CASES (DIREITA) -->
+    <section class="bottom-tools-grid">
+
+      <!-- COLUNA DA ESQUERDA: CALCULADORA -->
+      <div class="calc-column" id="calculadora">
+        <div class="calc-card">
+          <div class="card-header-styled">
+            <div class="header-icon-box">
+              <i class="fa-solid fa-calculator"></i>
+            </div>
+            <div>
+              <h3>Calculadora do Vendedor & Simulador</h3>
+              <p>Calcule comissões, metas e simule prêmios para os seus clientes em segundos.</p>
+            </div>
+          </div>
+
+          <!-- Modos da Calculadora -->
+          <div class="calc-modes-tabs">
+            <button class="mode-tab active" id="tabComissao" onclick="switchCalcMode('comissao')">
+              <i class="fa-solid fa-hand-holding-dollar"></i> Minhas Comissões
+            </button>
+            <button class="mode-tab" id="tabPremios" onclick="switchCalcMode('premios')">
+              <i class="fa-solid fa-dice"></i> Simulação p/ Cliente
+            </button>
+          </div>
+
+          <!-- MODO 1: COMISSÕES -->
+          <div class="calc-body" id="modeComissao">
+            <div class="form-row">
+              <label>Escolha o Produto:</label>
+              <div class="product-pills">
+                <button type="button" class="pill active" id="calcProdLotep" onclick="selectCalcProduct('lotep')">
+                  <i class="fa-solid fa-ticket"></i> LOTEP
+                </button>
+                <button type="button" class="pill" id="calcProdCap" onclick="selectCalcProduct('cap')">
+                  <i class="fa-solid fa-coins"></i> CAP
+                </button>
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="inputPrecoUnit">Valor Unitário do Título (R$):</label>
+                <div class="input-with-symbol">
+                  <span>R$</span>
+                  <input type="number" id="inputPrecoUnit" value="10" min="1" step="0.50" oninput="calculateCommission()">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputQtdVendas">Qtd. Vendas (Diária/Ciclo):</label>
+                <div class="input-with-symbol">
+                  <input type="number" id="inputQtdVendas" value="25" min="1" step="1" oninput="calculateCommission()">
+                  <span class="unit-text">unid.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="label-with-val">
+                <label>Sua Taxa de Comissão:</label>
+                <span class="val-highlight" id="lblComissaoPct">15%</span>
+              </div>
+              <input type="range" id="rangeComissao" min="5" max="40" value="15" step="1" oninput="updateCommissionSlider(this.value)">
+              <div class="slider-ticks">
+                <span>5%</span>
+                <span>15% (Padrão)</span>
+                <span>25%</span>
+                <span>40%</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputDiasTrabalho">Dias de Venda no Mês:</label>
+              <div class="days-pills">
+                <button type="button" class="pill-day" onclick="setWorkingDays(20)">20 dias</button>
+                <button type="button" class="pill-day active" onclick="setWorkingDays(26)">26 dias</button>
+                <button type="button" class="pill-day" onclick="setWorkingDays(30)">30 dias</button>
+              </div>
+              <input type="hidden" id="inputDiasTrabalho" value="26">
+            </div>
+
+            <!-- RESULTADOS DA CALCULADORA DE COMISSÃO -->
+            <div class="results-box">
+              <div class="res-item">
+                <span class="res-label">Faturamento Total do Dia</span>
+                <span class="res-value" id="resFatDia">R$ 250,00</span>
+              </div>
+              <div class="res-item highlight-green">
+                <span class="res-label"><i class="fa-solid fa-wallet"></i> Sua Comissão por Dia</span>
+                <span class="res-value" id="resComissaoDia">R$ 37,50</span>
+              </div>
+              <div class="res-item highlight-gold">
+                <span class="res-label"><i class="fa-solid fa-chart-line"></i> Projeção no Mês</span>
+                <span class="res-value big-res" id="resComissaoMes">R$ 975,00</span>
+              </div>
+            </div>
+
+            <button class="btn-copy-simulation" onclick="copyCommissionPitch()">
+              <i class="fa-solid fa-copy"></i>
+              <span>Copiar Resumo da Minha Meta</span>
+            </button>
+          </div>
+
+          <!-- MODO 2: SIMULAÇÃO PARA O CLIENTE -->
+          <div class="calc-body hidden" id="modePremios">
+            <div class="form-group">
+              <label for="simNomeCliente">Primeiro Nome do Cliente (Opcional):</label>
+              <input type="text" id="simNomeCliente" class="styled-input" placeholder="Ex: João, Maria..." oninput="calculateClientSimulation()">
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="simValorInvestido">Valor que o Cliente vai investir:</label>
+                <div class="input-with-symbol">
+                  <span>R$</span>
+                  <input type="number" id="simValorInvestido" value="50" min="5" step="5" oninput="calculateClientSimulation()">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="simTipoProduto">Modalidade:</label>
+                <select id="simTipoProduto" class="styled-select" onchange="calculateClientSimulation()">
+                  <option value="lotep_diario">LOTEP - Bilhete da Sorte (R$ 5 cada)</option>
+                  <option value="lotep_super">LOTEP - Super Cota (R$ 10 cada)</option>
+                  <option value="cap_semanal">CAP - Título Semanal (R$ 10 cada)</option>
+                  <option value="cap_mensal">CAP - Super Prêmio (R$ 20 cada)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- RESULTADOS DA SIMULAÇÃO PARA O CLIENTE -->
+            <div class="client-sim-card">
+              <div class="sim-badge"><i class="fa-solid fa-gift"></i> Resultado da Simulação do Cliente</div>
+              <div class="sim-stat-row">
+                <span>Total de Bilhetes/Chances:</span>
+                <strong id="simTotalChances">10 Chances de Premiação</strong>
+              </div>
+              <div class="sim-stat-row">
+                <span>Prêmios Principais Estimados:</span>
+                <strong class="text-gold" id="simPremiosEstimados">Até R$ 50.000,00</strong>
+              </div>
+              <div class="sim-stat-row">
+                <span>Chances Extras / Giro da Sorte:</span>
+                <strong id="simChancesExtras">10 Giros Instantâneos</strong>
+              </div>
+            </div>
+
+            <button class="btn-copy-simulation btn-whatsapp" onclick="copyClientWhatsAppMessage()">
+              <i class="fa-brands fa-whatsapp"></i>
+              <span>Copiar Mensagem Pronta p/ WhatsApp do Cliente</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUNA DA DIREITA: LINKS RÁPIDOS & CASES DE SUCESSO -->
+      <div class="links-cases-column">
+
+        <!-- BLOCO 1: LINKS & FERRAMENTAS OFICIAIS -->
+        <div class="block-card links-block">
+          <div class="card-header-styled mini">
+            <div class="header-icon-box">
+              <i class="fa-solid fa-link"></i>
+            </div>
+            <div>
+              <h3>Links Oficiais & Acessos Rápidos</h3>
+              <p>Canais oficiais, suporte direto e ferramentas de apoio.</p>
+            </div>
+          </div>
+
+          <div class="quick-links-grid">
+            <!-- Instagram -->
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="link-card link-instagram">
+              <div class="link-icon-circle"><i class="fa-brands fa-instagram"></i></div>
+              <div class="link-text">
+                <span class="link-title">Instagram Oficial</span>
+                <span class="link-desc">@suporte.luquinhas • Dicas diárias</span>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+            </a>
+
+            <!-- WhatsApp Grupo -->
+            <a href="https://chat.whatsapp.com" target="_blank" rel="noopener noreferrer" class="link-card link-whatsapp">
+              <div class="link-icon-circle"><i class="fa-brands fa-whatsapp"></i></div>
+              <div class="link-text">
+                <span class="link-title">Grupo VIP de Vendedores</span>
+                <span class="link-desc">Tira-dúvidas e avisos de resultados</span>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+            </a>
+
+            <!-- Site Oficial de Vendas -->
+            <a href="#" onclick="alert('Link do Site Oficial de Vendas configurável pelo gestor.'); return false;" class="link-card link-site">
+              <div class="link-icon-circle"><i class="fa-solid fa-globe"></i></div>
+              <div class="link-text">
+                <span class="link-title">Portal de Vendas Online</span>
+                <span class="link-desc">Painel de emissão e checagem</span>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+            </a>
+
+            <!-- Drive de Criativos -->
+            <a href="#" onclick="alert('Pasta com criativos, artes para Stories e panfletos digitais.'); return false;" class="link-card link-drive">
+              <div class="link-icon-circle"><i class="fa-solid fa-folder-open"></i></div>
+              <div class="link-text">
+                <span class="link-title">Drive de Criativos & Banners</span>
+                <span class="link-desc">Artes prontas para postar nos Stories</span>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- BLOCO 2: CASES DE SUCESSO (INSTAGRAM STYLE & PROVA SOCIAL) -->
+        <div class="block-card cases-block">
+          <div class="card-header-styled mini">
+            <div class="header-icon-box gold">
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <div>
+              <h3>Cases de Sucesso & Prova Social</h3>
+              <p>Histórias reais de vendedores e clientes premiados para inspirar e fechar vendas.</p>
+            </div>
+          </div>
+
+          <!-- Stories bar preview -->
+          <div class="stories-bar">
+            <div class="story-circle active" onclick="viewCase('case1')">
+              <div class="story-avatar"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Mariana"></div>
+              <span>Mariana</span>
+            </div>
+            <div class="story-circle active" onclick="viewCase('case2')">
+              <div class="story-avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Lucas"></div>
+              <span>Lucas</span>
+            </div>
+            <div class="story-circle active" onclick="viewCase('case3')">
+              <div class="story-avatar"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80" alt="Fernanda"></div>
+              <span>Fernanda</span>
+            </div>
+            <div class="story-circle active" onclick="viewCase('case4')">
+              <div class="story-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="Carlos"></div>
+              <span>Carlos</span>
+            </div>
+          </div>
+
+          <!-- Featured Case Card (Estilo Post do Instagram) -->
+          <div class="insta-post-card" id="featuredCasePost">
+            <div class="insta-header">
+              <div class="insta-user-meta">
+                <img id="caseUserImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" class="insta-avatar" alt="Avatar">
+                <div>
+                  <div class="insta-username" id="caseUserName">mariana.vendas <i class="fa-solid fa-circle-check verified-badge"></i></div>
+                  <div class="insta-location" id="caseUserLocation">Campina Grande - PB • Vendedora Destaque LOTEP</div>
+                </div>
+              </div>
+              <button class="btn-share-case" title="Copiar história para mandar pro cliente" onclick="copyCurrentCase()">
+                <i class="fa-solid fa-share-nodes"></i> Copiar Prova Social
+              </button>
+            </div>
+
+            <div class="insta-badge-callout" id="caseHighlight">
+              <i class="fa-solid fa-trophy"></i> R$ 5.840,00 faturados no 1º mês aplicando o script oficial!
+            </div>
+
+            <p class="insta-caption" id="caseCaption">
+              "No começo achei que ia ser difícil convencer as pessoas, mas quando usei o simulador com a tabela de chances oficiais da LOTEP, os clientes sentiram total confiança. Em 3 semanas bati minha meta de R$ 5 mil em comissões!"
+            </p>
+
+            <div class="insta-footer-actions">
+              <div class="case-tags" id="caseTags">
+                <span class="tag-pill">#LOTEP</span>
+                <span class="tag-pill">#ComissãoGarantida</span>
+                <span class="tag-pill">#CasoReal</span>
+              </div>
+              <div class="case-nav-dots">
+                <span class="dot active" onclick="viewCase('case1')"></span>
+                <span class="dot" onclick="viewCase('case2')"></span>
+                <span class="dot" onclick="viewCase('case3')"></span>
+                <span class="dot" onclick="viewCase('case4')"></span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- MODAL COMPLETO: MATERIAL LOTEP OU CAP (SIMULADOR / LEGISLAÇÃO / SCRIPTS) -->
+  <div class="modal-backdrop" id="productModal" onclick="closeProductModal(event)">
+    <div class="modal-dialog" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-badge" id="modalProductBadge">LOTEP</span>
+          <h2 id="modalProductTitle">Material de Apoio & Legislação LOTEP</h2>
+        </div>
+        <button class="modal-close-btn" onclick="closeProductModalDirect()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Abas Internas do Modal -->
+      <div class="modal-tabs">
+        <button class="m-tab active" id="mTabSimulador" onclick="switchModalTab('simulador')">
+          <i class="fa-solid fa-calculator"></i> Simulador Detalhado
+        </button>
+        <button class="m-tab" id="mTabLegislacao" onclick="switchModalTab('legislacao')">
+          <i class="fa-solid fa-scale-balanced"></i> Legislações & Portarias
+        </button>
+        <button class="m-tab" id="mTabScripts" onclick="switchModalTab('scripts')">
+          <i class="fa-solid fa-comment-dots"></i> Scripts de Venda
+        </button>
+        <button class="m-tab" id="mTabDownloads" onclick="switchModalTab('downloads')">
+          <i class="fa-solid fa-download"></i> Materiais & Downloads
+        </button>
+      </div>
+
+      <div class="modal-body">
+        
+        <!-- ABA 1: SIMULADOR DETALHADO -->
+        <div class="tab-pane active" id="paneSimulador">
+          <div class="interactive-sim-box" id="modalSimContent">
+            <!-- Preenchido dinamicamente conforme LOTEP ou CAP -->
+          </div>
+        </div>
+
+        <!-- ABA 2: LEGISLAÇÕES E PORTARIAS -->
+        <div class="tab-pane" id="paneLegislacao">
+          <div class="law-search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="lawSearchInput" placeholder="Buscar lei, decreto, artigo ou palavra-chave..." oninput="filterLaws(this.value)">
+          </div>
+          <div class="laws-accordion" id="modalLawsContent">
+            <!-- Accordion de leis preenchido via JavaScript -->
+          </div>
+        </div>
+
+        <!-- ABA 3: SCRIPTS DE VENDA -->
+        <div class="tab-pane" id="paneScripts">
+          <div class="scripts-list" id="modalScriptsContent">
+            <!-- Scripts de venda prontos para copiar preenchidos via JavaScript -->
+          </div>
+        </div>
+
+        <!-- ABA 4: DOWNLOADS E RECURSOS -->
+        <div class="tab-pane" id="paneDownloads">
+          <div class="downloads-grid" id="modalDownloadsContent">
+            <!-- Arquivos para download -->
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <span class="footer-note"><i class="fa-solid fa-shield"></i> Material oficial revisado para suporte às vendas.</span>
+        <button class="btn-modal-close" onclick="closeProductModalDirect()">Fechar Visualizador</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-container" id="toast">
+    <i class="fa-solid fa-circle-check toast-icon"></i>
+    <span id="toastMsg">Texto copiado para a área de transferência!</span>
+  </div>
+
+  <!-- Rodapé -->
+  <footer class="main-footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <strong>Vendas Suporte Luquinhas</strong> • Material de Apoio e Capacitação ao Vendedor.
+      </div>
+      <div class="footer-right">
+        <span>Em conformidade com as diretrizes regulatórias estaduais e SUSEP.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
