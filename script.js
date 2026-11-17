@@ -343,12 +343,13 @@ function saveNotepad() {
   localStorage.setItem('luquinhas_sales_notes', text);
 
   const status = document.getElementById('notepadStatus');
-  status.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Salvando...`;
-
-  if (notepadSaveTimeout) clearTimeout(notepadSaveTimeout);
-  notepadSaveTimeout = setTimeout(() => {
-    status.innerHTML = `<i class="fa-solid fa-check"></i> Salvo automaticamente`;
-  }, 400);
+  if (status) {
+    status.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Salvando...`;
+    if (notepadSaveTimeout) clearTimeout(notepadSaveTimeout);
+    notepadSaveTimeout = setTimeout(() => {
+      status.innerHTML = `<i class="fa-solid fa-check"></i> Salvo automaticamente`;
+    }, 400);
+  }
 }
 
 function loadNotepad() {
@@ -726,9 +727,222 @@ function escapeQuotes(string) {
   return String(string).replace(/'/g, "\\'").replace(/"/g, '\\"');
 }
 
+// ========================================================
+// CASES & LINKS OFICIAIS COM EDIÇÃO E FOTO DO INSTAGRAM
+// ========================================================
+const DEFAULT_CASES = [
+  { id: 1, name: "JoseAldo Cunha", insta: "josealdo.cunha", link: "https://gay.com" },
+  { id: 2, name: "Mariana Souza", insta: "mariana.souza", link: "https://gay.com" },
+  { id: 3, name: "Lucas Andrade", insta: "lucas.andrade", link: "https://gay.com" },
+  { id: 4, name: "Fernanda Lima", insta: "fernanda.lima", link: "https://gay.com" },
+  { id: 5, name: "Carlos Eduardo", insta: "carlos.eduardo", link: "https://gay.com" }
+];
+
+let casesData = [];
+
+function loadCases() {
+  const saved = localStorage.getItem('luquinhas_custom_cases');
+  if (saved) {
+    try {
+      casesData = JSON.parse(saved);
+    } catch (e) {
+      casesData = JSON.parse(JSON.stringify(DEFAULT_CASES));
+    }
+  } else {
+    casesData = JSON.parse(JSON.stringify(DEFAULT_CASES));
+  }
+  renderCases();
+}
+
+function saveCases() {
+  localStorage.setItem('luquinhas_custom_cases', JSON.stringify(casesData));
+  renderCases();
+}
+
+function getCleanInstaHandle(insta) {
+  if (!insta) return '';
+  return String(insta).replace(/^@+/, '').trim();
+}
+
+function getInstaAvatarUrl(insta, name) {
+  const handle = getCleanInstaHandle(insta);
+  const fallback = `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'User')}&background=1e293b&color=38bdf8`;
+  if (handle) {
+    return `https://unavatar.io/instagram/${encodeURIComponent(handle)}?fallback=${encodeURIComponent(fallback)}`;
+  }
+  return fallback;
+}
+
+function renderCases() {
+  const container = document.getElementById('casesListGroup');
+  if (!container) return;
+
+  let html = '';
+  casesData.forEach((item) => {
+    const cleanInsta = getCleanInstaHandle(item.insta);
+    const instaUrl = cleanInsta ? `https://instagram.com/${cleanInsta}` : '#';
+    const avatarSrc = getInstaAvatarUrl(cleanInsta, item.name);
+    const actionLink = item.link || '#';
+    const fallbackAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name || 'User')}&background=1e293b&color=38bdf8`;
+
+    html += `
+      <div class="case-row-item">
+        <div class="case-avatar-col">
+          <img 
+            src="${avatarSrc}" 
+            alt="${escapeHtml(item.name)}" 
+            class="case-insta-avatar-img"
+            loading="lazy"
+            onerror="this.onerror=null; this.src='${fallbackAvatar}';"
+          />
+        </div>
+        <div class="case-name-col">
+          <a href="${instaUrl}" target="_blank" rel="noopener noreferrer" class="case-insta-link-name" title="Visitar Instagram de @${escapeHtml(cleanInsta)}">
+            <span>${escapeHtml(item.name)}</span>
+            <i class="fa-brands fa-instagram insta-mini-icon"></i>
+          </a>
+        </div>
+        <div class="case-link-col">
+          <a href="${actionLink}" target="_blank" rel="noopener noreferrer" class="case-link-pill" title="Acessar link oficial">
+            ${escapeHtml(actionLink)}
+          </a>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// ========================================================
+// MODAL DE EDIÇÃO DOS CASES & LINKS
+// ========================================================
+function openEditCasesModal() {
+  const modal = document.getElementById('editCasesModal');
+  const container = document.getElementById('editCasesFormContainer');
+  if (!modal || !container) return;
+
+  let formHtml = '';
+  casesData.forEach((item, index) => {
+    const cleanInsta = getCleanInstaHandle(item.insta);
+    const avatarSrc = getInstaAvatarUrl(cleanInsta, item.name);
+    const fallbackAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name || 'User')}&background=1e293b&color=38bdf8`;
+
+    formHtml += `
+      <div class="edit-case-row-card">
+        <img 
+          src="${avatarSrc}" 
+          alt="Avatar" 
+          class="edit-avatar-preview" 
+          id="previewAvatar_${index}"
+          onerror="this.onerror=null; this.src='${fallbackAvatar}';"
+        />
+        <div class="edit-input-group">
+          <label>Nome Completo</label>
+          <input 
+            type="text" 
+            class="edit-input" 
+            id="editCaseName_${index}" 
+            value="${escapeHtml(item.name)}" 
+            placeholder="Nome da pessoa"
+            required
+          />
+        </div>
+        <div class="edit-input-group">
+          <label>Usuário do Instagram (@)</label>
+          <input 
+            type="text" 
+            class="edit-input" 
+            id="editCaseInsta_${index}" 
+            value="${escapeHtml(cleanInsta)}" 
+            placeholder="ex: josealdo.cunha"
+            oninput="updateAvatarPreviewLive(${index})"
+            required
+          />
+        </div>
+        <div class="edit-input-group">
+          <label>Link de Ações (URL visível)</label>
+          <input 
+            type="text" 
+            class="edit-input" 
+            id="editCaseLink_${index}" 
+            value="${escapeHtml(item.link)}" 
+            placeholder="https://..."
+            required
+          />
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = formHtml;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function updateAvatarPreviewLive(index) {
+  const instaInput = document.getElementById(`editCaseInsta_${index}`);
+  const nameInput = document.getElementById(`editCaseName_${index}`);
+  const imgEl = document.getElementById(`previewAvatar_${index}`);
+  if (!instaInput || !imgEl) return;
+
+  const handle = getCleanInstaHandle(instaInput.value);
+  const name = nameInput ? nameInput.value : 'User';
+  imgEl.src = getInstaAvatarUrl(handle, name);
+}
+
+function closeEditCasesModal(event) {
+  if (event.target === document.getElementById('editCasesModal')) {
+    closeEditCasesModalDirect();
+  }
+}
+
+function closeEditCasesModalDirect() {
+  const modal = document.getElementById('editCasesModal');
+  if (modal) {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+function saveEditedCases(event) {
+  if (event) event.preventDefault();
+
+  const newCases = [];
+  for (let i = 0; i < casesData.length; i++) {
+    const nameInput = document.getElementById(`editCaseName_${i}`);
+    const instaInput = document.getElementById(`editCaseInsta_${i}`);
+    const linkInput = document.getElementById(`editCaseLink_${i}`);
+
+    if (nameInput && instaInput && linkInput) {
+      newCases.push({
+        id: casesData[i].id || (i + 1),
+        name: nameInput.value.trim() || `Pessoa ${i + 1}`,
+        insta: getCleanInstaHandle(instaInput.value.trim()),
+        link: linkInput.value.trim() || '#'
+      });
+    }
+  }
+
+  casesData = newCases;
+  saveCases();
+  closeEditCasesModalDirect();
+  showToast("Cases e fotos do Instagram atualizados com sucesso!");
+}
+
+function restoreDefaultCases() {
+  if (confirm("Deseja restaurar a lista padrão de cases e links?")) {
+    casesData = JSON.parse(JSON.stringify(DEFAULT_CASES));
+    saveCases();
+    openEditCasesModal();
+    showToast("Padrões restaurados!");
+  }
+}
+
 // Inicializar na carga da página
 document.addEventListener('DOMContentLoaded', () => {
   updateIosDisplay();
   loadNotepad();
   loadCalendarEvents();
+  loadCases();
 });

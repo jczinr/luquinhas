@@ -28,17 +28,12 @@
 
   <main class="container main-content">
 
-    <!-- SEÇÃO TOPO: LOTEP, CAP E APRESENTAÇÃO (À DIREITA DE CAP) -->
+    <!-- SEÇÃO TOPO: LOTEP, CAP E APRESENTAÇÃO (SEM BADGES SUPERIORES) -->
     <section class="hub-selection-section">
       <div class="hub-cards-grid">
         
         <!-- CARD 1: LOTEP -->
         <div class="hub-card hub-lotep" id="cardLotep">
-          <div class="card-badge-top">
-            <span class="badge-tag lotep-tag"><i class="fa-solid fa-ticket"></i> Loteria Estadual</span>
-            <span class="badge-verified"><i class="fa-solid fa-circle-check"></i> Regulamentado</span>
-          </div>
-
           <div class="card-icon-title">
             <div class="hub-big-icon lotep-icon">
               <i class="fa-solid fa-clover"></i>
@@ -73,11 +68,6 @@
 
         <!-- CARD 2: CAP -->
         <div class="hub-card hub-cap" id="cardCap">
-          <div class="card-badge-top">
-            <span class="badge-tag cap-tag"><i class="fa-solid fa-shield-halved"></i> SUSEP</span>
-            <span class="badge-verified"><i class="fa-solid fa-trophy"></i> Sorteios</span>
-          </div>
-
           <div class="card-icon-title">
             <div class="hub-big-icon cap-icon">
               <i class="fa-solid fa-coins"></i>
@@ -120,11 +110,6 @@
 
         <!-- CARD 3: APRESENTAÇÃO (À DIREITA DE CAP) -->
         <div class="hub-card hub-apresentacao" id="cardApresentacao">
-          <div class="card-badge-top">
-            <span class="badge-tag apres-tag"><i class="fa-solid fa-file-pdf"></i> Material Comercial</span>
-            <span class="badge-verified"><i class="fa-solid fa-eye"></i> Visualizar</span>
-          </div>
-
           <div class="card-icon-title">
             <div class="hub-big-icon apres-icon">
               <i class="fa-solid fa-chalkboard-user"></i>
@@ -162,7 +147,7 @@
 
     <!-- SEÇÃO INFERIOR: 3 COLUNAS
          COL 1: CALCULADORA + AGENDA (EMBAIXO DA CALCULADORA)
-         COL 2: CASES & LINKS OFICIAIS
+         COL 2: CASES & LINKS OFICIAIS (COM BOTÃO DE EDITAR)
          COL 3: BLOCO DE NOTAS (MAIOR PARA BAIXO ALINHADO COM CASES) -->
     <section class="bottom-tools-grid" id="area-calculadora">
 
@@ -236,116 +221,28 @@
 
       </div>
 
-      <!-- COLUNA 2: CASES & LINKS -->
+      <!-- COLUNA 2: CASES & LINKS (COM BOTÃO DE EDITAR NO TOPO) -->
       <div class="cases-reference-column">
         <div class="cases-panel-card">
           <div class="cases-panel-header">
-            <span class="panel-dot"></span>
-            <h3>Cases & Links Oficiais</h3>
+            <div class="cases-header-left">
+              <span class="panel-dot"></span>
+              <h3>Cases & Links Oficiais</h3>
+            </div>
+            <!-- Botão de Editar Cases -->
+            <button class="btn-edit-cases" onclick="openEditCasesModal()" title="Alterar Instagram e Links de Ações">
+              <i class="fa-solid fa-pen-to-square"></i> Editar
+            </button>
           </div>
 
-          <div class="cases-list-group">
-
-            <!-- Item 1: JoseAldo Cunha -->
-            <div class="case-row-item">
-              <div class="case-avatar-col">
-                <a href="https://instagram.com/josealdo.cunha" target="_blank" rel="noopener noreferrer" title="Ver Instagram de JoseAldo Cunha">
-                  <div class="avatar-circle-icon avatar-blue"><i class="fa-solid fa-user"></i></div>
-                </a>
-              </div>
-              <div class="case-name-col">
-                <a href="https://instagram.com/josealdo.cunha" target="_blank" rel="noopener noreferrer" class="case-insta-link-name">
-                  JoseAldo Cunha <i class="fa-brands fa-instagram insta-mini-icon"></i>
-                </a>
-              </div>
-              <div class="case-link-col">
-                <a href="https://wa.me/?text=Ol%C3%A1%20JoseAldo%2C%20vi%20seu%20case%20no%20portal!" target="_blank" rel="noopener noreferrer" class="case-link-pill">
-                  https://wa.me/josealdo
-                </a>
-              </div>
-            </div>
-
-            <!-- Item 2: Mariana Souza -->
-            <div class="case-row-item">
-              <div class="case-avatar-col">
-                <a href="https://instagram.com/mariana.vendas" target="_blank" rel="noopener noreferrer" title="Ver Instagram de Mariana Souza">
-                  <div class="avatar-circle-icon avatar-pink"><i class="fa-solid fa-user"></i></div>
-                </a>
-              </div>
-              <div class="case-name-col">
-                <a href="https://instagram.com/mariana.vendas" target="_blank" rel="noopener noreferrer" class="case-insta-link-name">
-                  Mariana Souza <i class="fa-brands fa-instagram insta-mini-icon"></i>
-                </a>
-              </div>
-              <div class="case-link-col">
-                <a href="https://wa.me/?text=Ol%C3%A1%20Mariana%2C%20vi%20seu%20case%20no%20portal!" target="_blank" rel="noopener noreferrer" class="case-link-pill">
-                  https://wa.me/mariana
-                </a>
-              </div>
-            </div>
-
-            <!-- Item 3: Lucas Andrade -->
-            <div class="case-row-item">
-              <div class="case-avatar-col">
-                <a href="https://instagram.com/lucas.consultoria" target="_blank" rel="noopener noreferrer" title="Ver Instagram de Lucas Andrade">
-                  <div class="avatar-circle-icon avatar-green"><i class="fa-solid fa-user"></i></div>
-                </a>
-              </div>
-              <div class="case-name-col">
-                <a href="https://instagram.com/lucas.consultoria" target="_blank" rel="noopener noreferrer" class="case-insta-link-name">
-                  Lucas Andrade <i class="fa-brands fa-instagram insta-mini-icon"></i>
-                </a>
-              </div>
-              <div class="case-link-col">
-                <a href="https://wa.me/?text=Ol%C3%A1%20Lucas%2C%20vi%20seu%20case%20no%20portal!" target="_blank" rel="noopener noreferrer" class="case-link-pill">
-                  https://wa.me/lucas
-                </a>
-              </div>
-            </div>
-
-            <!-- Item 4: Fernanda Lima -->
-            <div class="case-row-item">
-              <div class="case-avatar-col">
-                <a href="https://instagram.com/fernanda.lider" target="_blank" rel="noopener noreferrer" title="Ver Instagram de Fernanda Lima">
-                  <div class="avatar-circle-icon avatar-purple"><i class="fa-solid fa-user"></i></div>
-                </a>
-              </div>
-              <div class="case-name-col">
-                <a href="https://instagram.com/fernanda.lider" target="_blank" rel="noopener noreferrer" class="case-insta-link-name">
-                  Fernanda Lima <i class="fa-brands fa-instagram insta-mini-icon"></i>
-                </a>
-              </div>
-              <div class="case-link-col">
-                <a href="https://wa.me/?text=Ol%C3%A1%20Fernanda%2C%20vi%20seu%20case%20no%20portal!" target="_blank" rel="noopener noreferrer" class="case-link-pill">
-                  https://wa.me/fernanda
-                </a>
-              </div>
-            </div>
-
-            <!-- Item 5: Carlos Eduardo -->
-            <div class="case-row-item">
-              <div class="case-avatar-col">
-                <a href="https://instagram.com/carlos.vendas.pb" target="_blank" rel="noopener noreferrer" title="Ver Instagram de Carlos Eduardo">
-                  <div class="avatar-circle-icon avatar-gold"><i class="fa-solid fa-user"></i></div>
-                </a>
-              </div>
-              <div class="case-name-col">
-                <a href="https://instagram.com/carlos.vendas.pb" target="_blank" rel="noopener noreferrer" class="case-insta-link-name">
-                  Carlos Eduardo <i class="fa-brands fa-instagram insta-mini-icon"></i>
-                </a>
-              </div>
-              <div class="case-link-col">
-                <a href="https://wa.me/?text=Ol%C3%A1%20Carlos%2C%20vi%20seu%20case%20no%20portal!" target="_blank" rel="noopener noreferrer" class="case-link-pill">
-                  https://wa.me/carlos
-                </a>
-              </div>
-            </div>
-
+          <!-- LISTA DINÂMICA DE CASES -->
+          <div class="cases-list-group" id="casesListGroup">
+            <!-- Renderizado dinamicamente via JavaScript com foto do Instagram -->
           </div>
         </div>
       </div>
 
-      <!-- COLUNA 3: BLOCO DE NOTAS (MAIOR PARA BAIXO ALINHADO COM CASES) -->
+      <!-- COLUNA 3: BLOCO DE NOTAS (MAIOR PARA BAIXO ALINHADO COM CASES - SEM "SALVO AUTOMATICAMENTE") -->
       <div class="notepad-column">
         <div class="widget-card notepad-widget-large">
           <div class="widget-header">
@@ -361,15 +258,45 @@
           <div class="notepad-body">
             <textarea id="salesNotepad" placeholder="Faça anotações de vendas, dados de clientes, telefones, cotas, lembretes diários e metas..." oninput="saveNotepad()"></textarea>
           </div>
-          <div class="notepad-status-bar">
-            <span id="notepadStatus"><i class="fa-solid fa-check"></i> Salvo automaticamente</span>
-          </div>
         </div>
       </div>
 
     </section>
 
   </main>
+
+  <!-- MODAL DE EDIÇÃO DE CASES & LINKS -->
+  <div class="modal-backdrop" id="editCasesModal" onclick="closeEditCasesModal(event)">
+    <div class="modal-dialog modal-edit-dialog" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-badge apres-modal-badge"><i class="fa-brands fa-instagram"></i> INSTAGRAM & LINKS</span>
+          <h2>Editar Pessoas, Instagram & Ações</h2>
+        </div>
+        <button class="modal-close-btn" onclick="closeEditCasesModalDirect()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body edit-modal-body">
+        <p class="edit-help-text">
+          <i class="fa-solid fa-circle-info"></i> A foto de cada pessoa é <strong>puxada automaticamente do perfil do Instagram</strong> em tempo real!
+        </p>
+
+        <form id="editCasesForm" onsubmit="saveEditedCases(event)">
+          <div class="edit-cases-grid" id="editCasesFormContainer">
+            <!-- Preenchido dinamicamente via JS -->
+          </div>
+
+          <div class="edit-form-footer">
+            <button type="button" class="btn-restore-default" onclick="restoreDefaultCases()">
+              <i class="fa-solid fa-rotate-left"></i> Restaurar Padrões
+            </button>
+            <button type="submit" class="btn-save-cases">
+              <i class="fa-solid fa-check"></i> Salvar e Atualizar Site
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL DE APRESENTAÇÃO PDF -->
   <div class="modal-backdrop" id="apresentacaoModal" onclick="closeApresentacaoModal(event)">
